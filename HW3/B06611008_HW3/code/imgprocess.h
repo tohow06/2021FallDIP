@@ -4,28 +4,27 @@
 #include <map>
 #include <opencv2/opencv.hpp>
 
-
-using namespace cv;
 class ImgProcess{
     public:
-        Mat calCalHist(Mat);
-        Mat cvtColorBGRRGB(Mat);
-        Mat grayScaleA(Mat);
-        Mat grayScaleB(Mat);
-        Mat subtractGray(Mat, Mat);
-        Mat binByTH(Mat, int);
-        Mat modSpatial(Mat, int);
-        Mat modGrayLevel(Mat, int);
-        Mat modBright(Mat, int);
-        Mat modContrast(Mat, int);
-        Mat histEQ(Mat);
-        Mat genKernel(int, int);
-        Mat gaussian(int, float, float);
-        Mat conv2DD(Mat, Mat);
-        Mat ordfilt(Mat, Mat);
-        Mat addZeroPad(Mat, int);
-        Mat imRescale(Mat, int);
-        Mat zeroCross(Mat, double);
+        cv::Mat calCalHist(cv::Mat);
+        cv::Mat cvtColorBGRRGB(cv::Mat);
+        cv::Mat grayScaleA(cv::Mat);
+        cv::Mat grayScaleB(cv::Mat);
+        cv::Mat subtractGray(cv::Mat, cv::Mat);
+        cv::Mat binByTH(cv::Mat, int);
+        cv::Mat modSpatial(cv::Mat, int);
+        cv::Mat modGrayLevel(cv::Mat, int);
+        cv::Mat modBright(cv::Mat, int);
+        cv::Mat modContrast(cv::Mat, int);
+        cv::Mat histEQ(cv::Mat);
+        cv::Mat genKernel(int, int);
+        cv::Mat gaussian(int, float, float);
+        cv::Mat conv2DD(cv::Mat, cv::Mat);
+        cv::Mat ordfilt(cv::Mat, cv::Mat);
+        cv::Mat addZeroPad(cv::Mat, int);
+        cv::Mat imRescale(cv::Mat, int);
+        cv::Mat zeroCross(cv::Mat, double);
+
 
 };
 

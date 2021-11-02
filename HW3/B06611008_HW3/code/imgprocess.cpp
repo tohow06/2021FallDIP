@@ -277,7 +277,7 @@ Mat ImgProcess::histEQ(Mat srcM){
 Mat ImgProcess::genKernel(int type, int s)
 {
     Mat m;
-    float size[] = {0,3,5,7,9,11,21,25,43,85};
+    int size[] = {0,3,5,7,9,11,21,25,43,85};
     int MN = size[s];
 
     switch(type){
@@ -376,7 +376,7 @@ Mat ImgProcess::ordfilt(Mat ker, Mat src){
     int kerRows = ker.rows;
     int kerCols = ker.cols;
     int padS = (kerRows-1)/2;
-    int ord = ker.at<float>(0,0);
+    int ord = int(ker.at<float>(0,0));
 
     int srcRows = src.rows;
     int srcCols = src.cols;
@@ -395,7 +395,7 @@ Mat ImgProcess::ordfilt(Mat ker, Mat src){
                 float srci = padMat.at<float>(i+padS*2-int(c/kerRows), j+padS*2-c%kerRows);
                 stat.at<float>(c,0) = srci;
             }
-            sort(stat,stat,1+0);
+            cv::sort(stat,stat,1+0);
 
             switch (ord) {
             case 7:
@@ -482,26 +482,26 @@ Mat ImgProcess::zeroCross(Mat src, double thre)
             float ld = src.at<float>(i-1,j+1);
 
             if (up*down < 0 ){
-                if (abs(up-down) > thre){
+                if (std::abs(up-down) > thre){
                     dst.at<float>(i-1,j-1)=1;
                     std::cout<<"I am right up down !!!!"<<std::endl;
                     continue;
                 }
             }
             if (left*right < 0 ){
-                if (abs(left-right) > thre){
+                if (std::abs(left-right) > thre){
                     dst.at<float>(i-1,j-1)=1;
                     continue;
                 }
             }
             if (lu*rd < 0 ){
-                if (abs(lu-rd) > thre){
+                if (std::abs(lu-rd) > thre){
                     dst.at<float>(i-1,j-1)=1;
                     continue;
                 }
             }
             if (ru*ld < 0 ){
-                if (abs(ru-ld) > thre){
+                if (std::abs(ru-ld) > thre){
                     dst.at<float>(i-1,j-1)=1;
                     continue;
                 }
