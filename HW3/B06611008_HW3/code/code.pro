@@ -23,32 +23,39 @@ FORMS    += diphw.ui
 
 #mac open this --------------------------------------------------
 
+unix {
+    TARGET = code
+    TEMPLATE = app
 
-#TARGET = code
-#TEMPLATE = app
+    win32:CONFIG(release, debug|release): LIBS += -L/usr/local/Cellar/opencv@3/3.4.15/lib/release/ -lopencv_imgproc -lopencv_core -lopencv_highgui -lopencv_imgcodecs
+    else:win32:CONFIG(debug, debug|release): LIBS += -L/usr/local/Cellar/opencv@3/3.4.15/lib/debug/ -lopencv_imgproc -lopencv_core -lopencv_highgui -lopencv_imgcodecs
+    else:unix: LIBS += -L/usr/local/Cellar/opencv@3/3.4.15/lib/ -lopencv_imgproc -lopencv_core -lopencv_highgui -lopencv_imgcodecs
 
-#win32:CONFIG(release, debug|release): LIBS += -L/usr/local/Cellar/opencv@3/3.4.15/lib/release/ -lopencv_imgproc -lopencv_core -lopencv_highgui -lopencv_imgcodecs
-#else:win32:CONFIG(debug, debug|release): LIBS += -L/usr/local/Cellar/opencv@3/3.4.15/lib/debug/ -lopencv_imgproc -lopencv_core -lopencv_highgui -lopencv_imgcodecs
-#else:unix: LIBS += -L/usr/local/Cellar/opencv@3/3.4.15/lib/ -lopencv_imgproc -lopencv_core -lopencv_highgui -lopencv_imgcodecs
+    INCLUDEPATH += /usr/local/Cellar/opencv@3/3.4.15/include
+    DEPENDPATH += /usr/local/Cellar/opencv@3/3.4.15/include
 
-#INCLUDEPATH += /usr/local/Cellar/opencv@3/3.4.15/include
-#DEPENDPATH += /usr/local/Cellar/opencv@3/3.4.15/include
+}
+
 #----------------------------------------------------------------
 
 
 
 #windows open this --------------------------------------------------
-CONFIG += c++11
 
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
+win32 {
+    CONFIG += c++11
 
-win32:CONFIG(release, debug|release): LIBS += -LD:/opencv3412/build/x64/vc15/lib/ -lopencv_world3412
-else:win32:CONFIG(debug, debug|release): LIBS += -LD:/opencv3412/build/x64/vc15/lib/ -lopencv_world3412d
+    qnx: target.path = /tmp/$${TARGET}/bin
+    else: unix:!android: target.path = /opt/$${TARGET}/bin
+    !isEmpty(target.path): INSTALLS += target
 
-INCLUDEPATH += D:/opencv3412/build/include
+    win32:CONFIG(release, debug|release): LIBS += -LD:/opencv3412/build/x64/vc15/lib/ -lopencv_world3412
+    else:win32:CONFIG(debug, debug|release): LIBS += -LD:/opencv3412/build/x64/vc15/lib/ -lopencv_world3412d
 
-DEPENDPATH += D:/opencv3412/build/include
+    INCLUDEPATH += D:/opencv3412/build/include
+
+    DEPENDPATH += D:/opencv3412/build/include
+
+}
 #----------------------------------------------------------------
 

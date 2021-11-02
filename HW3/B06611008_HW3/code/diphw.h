@@ -6,6 +6,9 @@
 
 #include <QMainWindow>
 #include <QFileDialog>
+#include <QElapsedTimer>
+#include <QDebug>
+#include <QtWidgets>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class diphw; }
@@ -29,6 +32,10 @@ private slots:
     void on_sizeBox_currentIndexChanged(int index);
 
     void on_convButton_clicked();
+
+    void on_closeImgButton_clicked();
+
+    void on_zcButton_clicked();
 
 private:
     Ui::diphw *ui;

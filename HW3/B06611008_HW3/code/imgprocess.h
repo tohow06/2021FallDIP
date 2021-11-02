@@ -22,7 +22,10 @@ class ImgProcess{
         Mat genKernel(int, int);
         Mat gaussian(int, float, float);
         Mat conv2DD(Mat, Mat);
+        Mat ordfilt(Mat, Mat);
         Mat addZeroPad(Mat, int);
+        Mat imRescale(Mat, int);
+        Mat zeroCross(Mat, double);
 
 };
 
