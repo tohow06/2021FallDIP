@@ -37,6 +37,8 @@ private slots:
 
     void on_zcButton_clicked();
 
+    void on_thresSlider_valueChanged(int value);
+
 private:
     Ui::diphw *ui;
     cv::Mat myImg;
@@ -44,6 +46,7 @@ private:
     cv::Mat myImg3;
     cv::Mat mykernel;
     ImgProcess imgp;
+    float zcThres;
     void upDateMatrix();
 
 };

@@ -5,7 +5,7 @@ clear variables
 close all
 
 %% try laplacian
-m=imread('./code/data/moon.png');
+m=imread('/Users/tohow/Documents/QtQt/2021FallDIP/HW3/B06611008_HW3/code/data/moon.png');
 m = rgb2gray(m);
 figure
 imshow(m)
@@ -19,7 +19,7 @@ imshow(cr,[0 255]);
 
 %% try Sobel
 
-t = Tiff('./code/data/Fig1016(a)(building_original).tif');
+t = Tiff('/Users/tohow/Documents/QtQt/2021FallDIP/HW3/B06611008_HW3/code/data/Fig1016(a)(building_original).tif');
 house = read(t);
 
 figure
@@ -55,7 +55,7 @@ gf = fspecial('gaussian',n, sig);
 % La = fspecial('laplacian',0);
 La = [1 1 1; 1 -8 1;1 1 1];
 
-img = imread('./code/data/blackcool.jpg');
+img = imread('/Users/tohow/Documents/QtQt/2021FallDIP/HW3/B06611008_HW3/code/data/blackcool.jpg');
 img = rgb2gray(img);
 img = mean(img, 3);
 hre = cast(img,'double');
@@ -95,6 +95,8 @@ im = imshow(bw,'Parent',hh);
 function gs=imrescale(src,K)
     srcm = min(min(src));
     gm=src-srcm;
+    disp("gm 1,1 =")
+    disp(gm(1,1))
     gs = K*(gm/max(max(gm)));
 end
 %%

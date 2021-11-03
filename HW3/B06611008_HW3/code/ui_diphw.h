@@ -18,6 +18,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QVBoxLayout>
@@ -39,6 +40,9 @@ public:
     QVBoxLayout *verticalLayout_3;
     QPushButton *convButton;
     QPushButton *zcButton;
+    QHBoxLayout *horizontalLayout_3;
+    QLabel *label_3;
+    QSlider *thresSlider;
     QLabel *label;
     QHBoxLayout *horizontalLayout_5;
     QSpacerItem *horizontalSpacer_2;
@@ -64,7 +68,7 @@ public:
     {
         if (diphw->objectName().isEmpty())
             diphw->setObjectName(QString::fromUtf8("diphw"));
-        diphw->resize(359, 520);
+        diphw->resize(409, 567);
         centralwidget = new QWidget(diphw);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         verticalLayout = new QVBoxLayout(centralwidget);
@@ -97,7 +101,6 @@ public:
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         matrixBox = new QComboBox(centralwidget);
-        matrixBox->addItem(QString());
         matrixBox->addItem(QString());
         matrixBox->addItem(QString());
         matrixBox->addItem(QString());
@@ -146,6 +149,25 @@ public:
         zcButton->setMaximumSize(QSize(16777215, 35));
 
         verticalLayout_3->addWidget(zcButton);
+
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
+        label_3 = new QLabel(centralwidget);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+
+        horizontalLayout_3->addWidget(label_3);
+
+        thresSlider = new QSlider(centralwidget);
+        thresSlider->setObjectName(QString::fromUtf8("thresSlider"));
+        thresSlider->setMaximum(99);
+        thresSlider->setSingleStep(1);
+        thresSlider->setSliderPosition(0);
+        thresSlider->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_3->addWidget(thresSlider);
+
+
+        verticalLayout_3->addLayout(horizontalLayout_3);
 
 
         horizontalLayout->addLayout(verticalLayout_3);
@@ -318,7 +340,7 @@ public:
         diphw->setCentralWidget(centralwidget);
         menubar = new QMenuBar(diphw);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 359, 24));
+        menubar->setGeometry(QRect(0, 0, 409, 24));
         diphw->setMenuBar(menubar);
         statusbar = new QStatusBar(diphw);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -339,11 +361,10 @@ public:
         matrixBox->setItemText(2, QApplication::translate("diphw", "Gaussian sigma=1", nullptr));
         matrixBox->setItemText(3, QApplication::translate("diphw", "Gaussian sigma=2", nullptr));
         matrixBox->setItemText(4, QApplication::translate("diphw", "Laplacian of Gaussian", nullptr));
-        matrixBox->setItemText(5, QApplication::translate("diphw", "Marr-Hildreth", nullptr));
-        matrixBox->setItemText(6, QApplication::translate("diphw", "Sobel", nullptr));
-        matrixBox->setItemText(7, QApplication::translate("diphw", "max", nullptr));
-        matrixBox->setItemText(8, QApplication::translate("diphw", "median", nullptr));
-        matrixBox->setItemText(9, QApplication::translate("diphw", "min", nullptr));
+        matrixBox->setItemText(5, QApplication::translate("diphw", "Sobel", nullptr));
+        matrixBox->setItemText(6, QApplication::translate("diphw", "max", nullptr));
+        matrixBox->setItemText(7, QApplication::translate("diphw", "median", nullptr));
+        matrixBox->setItemText(8, QApplication::translate("diphw", "min", nullptr));
 
         sizeBox->setItemText(0, QApplication::translate("diphw", "select size", nullptr));
         sizeBox->setItemText(1, QApplication::translate("diphw", "3x3", nullptr));
@@ -358,6 +379,7 @@ public:
 
         convButton->setText(QApplication::translate("diphw", "convolution", nullptr));
         zcButton->setText(QApplication::translate("diphw", "Zero-Corssing", nullptr));
+        label_3->setText(QApplication::translate("diphw", "Threshold", nullptr));
         label->setText(QApplication::translate("diphw", "Selected kernel (only showing 3x3 around the center)", nullptr));
         m31->setText(QApplication::translate("diphw", "0", nullptr));
         m32->setText(QApplication::translate("diphw", "0", nullptr));

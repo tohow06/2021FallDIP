@@ -270,9 +270,11 @@ Mat ImgProcess::histEQ(Mat srcM){
 //type = 1 -> box
 //     = 2 -> Gaussian sigma=1
 //     = 3 -> Gaussian sigma=2
-//     = 7 -> max
-//     = 8 -> median
-//     = 9 -> min
+//     = 4 -> LoG sigma=4
+//     = 5 -> Sobel
+//     = 6 -> max
+//     = 7 -> median
+//     = 8 -> min
 //size[s] = {0,3,5,7,9,11,21,25,43,85}
 Mat ImgProcess::genKernel(int type, int s)
 {
@@ -298,13 +300,16 @@ Mat ImgProcess::genKernel(int type, int s)
             m = conv2DD(g,l).clone();
             break;
         }
-        case 7:
+        case 5:
+            m = (Mat_<float>(3,3) << -1,-2,-1,0,0,0,1,2,1);
+            break;
+        case 6:
             m = Mat::ones(MN,MN,CV_32F)*7;
             break;
-        case 8:
+        case 7:
             m = Mat::ones(MN,MN,CV_32F)*8;
             break;
-        case 9:
+        case 8:
             m = Mat::ones(MN,MN,CV_32F)*9;
             break;
 
@@ -451,12 +456,14 @@ Mat ImgProcess::imRescale(Mat src, int K)
 
     double min, max;
     cv::minMaxLoc(src, &min, &max);
-    std::cout<<"min , max"<<min<<", "<<max<<std::endl;
+    Mat gm;
+    subtract(src,Scalar(min),gm);
+    cv::minMaxLoc(gm, &min, &max);
     Mat dst = Mat::zeros(srcRows,srcCols, CV_32F);
+
     for(int i=0; i<srcRows; i++){
         for(int j=0; j<srcCols; j++){
-            float gm = src.at<float>(i,j)-min;
-            float gs = K*gm/max;
+            float gs = K*gm.at<float>(i,j)/max;
             dst.at<float>(i,j) = gs;
         }
     }
@@ -484,7 +491,6 @@ Mat ImgProcess::zeroCross(Mat src, double thre)
             if (up*down < 0 ){
                 if (std::abs(up-down) > thre){
                     dst.at<float>(i-1,j-1)=1;
-                    std::cout<<"I am right up down !!!!"<<std::endl;
                     continue;
                 }
             }

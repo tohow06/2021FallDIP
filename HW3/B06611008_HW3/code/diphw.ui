@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>359</width>
-    <height>520</height>
+    <width>409</width>
+    <height>567</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -86,11 +86,6 @@
           <item>
            <property name="text">
             <string>Laplacian of Gaussian</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Marr-Hildreth</string>
            </property>
           </item>
           <item>
@@ -210,6 +205,33 @@
            <string>Zero-Corssing</string>
           </property>
          </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Threshold</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="thresSlider">
+            <property name="maximum">
+             <number>99</number>
+            </property>
+            <property name="singleStep">
+             <number>1</number>
+            </property>
+            <property name="sliderPosition">
+             <number>0</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>
@@ -635,7 +657,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>359</width>
+     <width>409</width>
      <height>24</height>
     </rect>
    </property>

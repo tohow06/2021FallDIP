@@ -19,8 +19,8 @@ void diphw::on_openButton_clicked()
 {
 
     QString fileName = QFileDialog::getOpenFileName(this,
-        tr("Open Image"), ".",
-//        tr("Open Image"),"/Users/tohow/Documents/QtQt/2021FallDIP/HW3/B06611008_HW3/code/data/.",
+//        tr("Open Image"), ".",
+        tr("Open Image"),"/Users/tohow/Documents/QtQt/2021FallDIP/HW3/B06611008_HW3/code/data/.",
         tr("Image Files (*.png *.jpg *.jpeg *.bmp"));
     if(fileName != NULL)
     {
@@ -45,7 +45,7 @@ void diphw::upDateMatrix()
            << ui->m21<< ui->m22<< ui->m23
            << ui->m31<< ui->m32<< ui->m33;
 
-    if (m != 0 && m<= 6 && size != 0 ){
+    if (m != 0 && m<= 5 && size != 0 ){
         this->mykernel = this->imgp.genKernel(m,size).clone();
         int cenr = this->mykernel.rows/2;
         int cenc = this->mykernel.cols/2;
@@ -53,7 +53,7 @@ void diphw::upDateMatrix()
         for(int i=0; i<9; i++)
             labels.at(i)->setText(QString::number(this->mykernel.at<float>(cenr-1+int(i/3),cenc-1+i%3),'f',2));
 
-    }else if (m != 0 && m > 6 && size != 0) {
+    }else if (m != 0 && m > 5 && size != 0) {
         this->mykernel = this->imgp.genKernel(m,size).clone();
         for(int i=0; i<9; i++)
             labels.at(i)->setText("x");
@@ -71,7 +71,7 @@ void diphw::on_convButton_clicked()
     ui->timelabel->setText("Calculating...");
     gray = this->imgp.grayScaleA(this->myImg).clone();
     int m = ui->matrixBox->currentIndex();
-    if(m < 7){
+    if(m < 6){
         if (m == 4){
             gray = this->imgp.imRescale(gray, 1).clone();
         }
@@ -86,16 +86,8 @@ void diphw::on_convButton_clicked()
     snprintf(txt,40,"Execution time: %d ms",t);
     ui->timelabel->setText(txt);
 
-    if (ui->matrixBox->currentIndex() == 4){
-        std::cout<<"re.at<uchar>(0,0)"<<re.at<float>(0,1)<<std::endl;
-        std::cout<<"re.at<uchar>(0,0)"<<re.at<float>(0,2)<<std::endl;
-        std::cout<<"re.at<uchar>(0,0)"<<re.at<float>(0,3)<<std::endl;
-        std::cout<<"re.at<uchar>(0,0)"<<re.at<float>(0,4)<<std::endl;
+    if (m == 4){
         re = this->imgp.imRescale(re,255).clone();
-        std::cout<<"re.at<uchar>(0,0)"<<re.at<float>(0,1)<<std::endl;
-        std::cout<<"re.at<uchar>(0,0)"<<re.at<float>(0,2)<<std::endl;
-        std::cout<<"re.at<uchar>(0,0)"<<re.at<float>(0,3)<<std::endl;
-        std::cout<<"re.at<uchar>(0,0)"<<re.at<float>(0,4)<<std::endl;
     }
     re.convertTo(re,CV_8U);
     cv::imshow("Result", re);
@@ -106,10 +98,17 @@ void diphw::on_convButton_clicked()
 void diphw::on_matrixBox_currentIndexChanged(int index)
 {
     if (index == 4){
+        for(int i=1;i<10;i++)
+            ui->sizeBox->setItemData(i, 33, Qt::UserRole - 1);
         for(int i=1;i<6;i++)
             ui->sizeBox->setItemData(i, 0, Qt::UserRole - 1);
+    }else if (index == 5){
+        for(int i=1;i<10;i++)
+            ui->sizeBox->setItemData(i, 33, Qt::UserRole - 1);
+        for(int i=2;i<10;i++)
+            ui->sizeBox->setItemData(i, 0, Qt::UserRole - 1);
     }else{
-        for(int i=1;i<6;i++)
+        for(int i=1;i<10;i++)
             ui->sizeBox->setItemData(i, 33, Qt::UserRole - 1);
     }
     upDateMatrix();
@@ -134,7 +133,12 @@ void diphw::on_zcButton_clicked()
 {
     double max, min;
     cv::minMaxLoc(this->myImg2,&min,&max);
-    cv::Mat m = this->imgp.zeroCross(this->myImg2, max*0).clone();
+    cv::Mat m = this->imgp.zeroCross(this->myImg2, max*zcThres/100).clone();
     cv::imshow("zero-crossing result", m);
+}
+
+void diphw::on_thresSlider_valueChanged(int value)
+{
+    this->zcThres = value;
 }
 
