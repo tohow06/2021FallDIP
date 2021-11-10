@@ -93,6 +93,9 @@ public:
         openButton->setSizePolicy(sizePolicy);
         openButton->setMinimumSize(QSize(0, 0));
         openButton->setMaximumSize(QSize(16777215, 60));
+        QFont font1;
+        font1.setPointSize(12);
+        openButton->setFont(font1);
 
         verticalLayout->addWidget(openButton);
 
@@ -111,6 +114,12 @@ public:
         matrixBox->addItem(QString());
         matrixBox->addItem(QString());
         matrixBox->setObjectName(QString::fromUtf8("matrixBox"));
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(matrixBox->sizePolicy().hasHeightForWidth());
+        matrixBox->setSizePolicy(sizePolicy1);
+        matrixBox->setFont(font1);
 
         verticalLayout_2->addWidget(matrixBox);
 
@@ -126,6 +135,9 @@ public:
         sizeBox->addItem(QString());
         sizeBox->addItem(QString());
         sizeBox->setObjectName(QString::fromUtf8("sizeBox"));
+        sizePolicy1.setHeightForWidth(sizeBox->sizePolicy().hasHeightForWidth());
+        sizeBox->setSizePolicy(sizePolicy1);
+        sizeBox->setFont(font1);
 
         verticalLayout_2->addWidget(sizeBox);
 
@@ -138,7 +150,8 @@ public:
         convButton->setObjectName(QString::fromUtf8("convButton"));
         sizePolicy.setHeightForWidth(convButton->sizePolicy().hasHeightForWidth());
         convButton->setSizePolicy(sizePolicy);
-        convButton->setMaximumSize(QSize(16777215, 35));
+        convButton->setMaximumSize(QSize(200, 35));
+        convButton->setFont(font1);
 
         verticalLayout_3->addWidget(convButton);
 
@@ -146,7 +159,8 @@ public:
         zcButton->setObjectName(QString::fromUtf8("zcButton"));
         sizePolicy.setHeightForWidth(zcButton->sizePolicy().hasHeightForWidth());
         zcButton->setSizePolicy(sizePolicy);
-        zcButton->setMaximumSize(QSize(16777215, 35));
+        zcButton->setMaximumSize(QSize(200, 35));
+        zcButton->setFont(font1);
 
         verticalLayout_3->addWidget(zcButton);
 
@@ -154,11 +168,16 @@ public:
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         label_3 = new QLabel(centralwidget);
         label_3->setObjectName(QString::fromUtf8("label_3"));
+        label_3->setMaximumSize(QSize(50, 16777215));
+        QFont font2;
+        font2.setPointSize(10);
+        label_3->setFont(font2);
 
         horizontalLayout_3->addWidget(label_3);
 
         thresSlider = new QSlider(centralwidget);
         thresSlider->setObjectName(QString::fromUtf8("thresSlider"));
+        thresSlider->setMaximumSize(QSize(150, 16777215));
         thresSlider->setMaximum(99);
         thresSlider->setSingleStep(1);
         thresSlider->setSliderPosition(0);
@@ -177,16 +196,18 @@ public:
 
         label = new QLabel(centralwidget);
         label->setObjectName(QString::fromUtf8("label"));
-        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Minimum);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
-        label->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Minimum);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
+        label->setSizePolicy(sizePolicy2);
         label->setMinimumSize(QSize(0, 0));
         label->setMaximumSize(QSize(16777215, 20));
-        QFont font1;
-        font1.setPointSize(13);
-        label->setFont(font1);
+        QFont font3;
+        font3.setPointSize(12);
+        font3.setBold(false);
+        font3.setWeight(50);
+        label->setFont(font3);
         label->setAlignment(Qt::AlignCenter);
 
         verticalLayout->addWidget(label);
@@ -201,8 +222,8 @@ public:
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         m31 = new QLabel(centralwidget);
         m31->setObjectName(QString::fromUtf8("m31"));
-        sizePolicy1.setHeightForWidth(m31->sizePolicy().hasHeightForWidth());
-        m31->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(m31->sizePolicy().hasHeightForWidth());
+        m31->setSizePolicy(sizePolicy2);
         m31->setMinimumSize(QSize(40, 40));
         m31->setMaximumSize(QSize(40, 40));
         m31->setFrameShape(QFrame::Box);
@@ -212,8 +233,8 @@ public:
 
         m32 = new QLabel(centralwidget);
         m32->setObjectName(QString::fromUtf8("m32"));
-        sizePolicy1.setHeightForWidth(m32->sizePolicy().hasHeightForWidth());
-        m32->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(m32->sizePolicy().hasHeightForWidth());
+        m32->setSizePolicy(sizePolicy2);
         m32->setMinimumSize(QSize(40, 40));
         m32->setMaximumSize(QSize(40, 40));
         m32->setFrameShape(QFrame::Box);
@@ -224,8 +245,8 @@ public:
 
         m21 = new QLabel(centralwidget);
         m21->setObjectName(QString::fromUtf8("m21"));
-        sizePolicy1.setHeightForWidth(m21->sizePolicy().hasHeightForWidth());
-        m21->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(m21->sizePolicy().hasHeightForWidth());
+        m21->setSizePolicy(sizePolicy2);
         m21->setMinimumSize(QSize(40, 40));
         m21->setMaximumSize(QSize(40, 40));
         m21->setFrameShape(QFrame::Box);
@@ -235,8 +256,8 @@ public:
 
         m22 = new QLabel(centralwidget);
         m22->setObjectName(QString::fromUtf8("m22"));
-        sizePolicy1.setHeightForWidth(m22->sizePolicy().hasHeightForWidth());
-        m22->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(m22->sizePolicy().hasHeightForWidth());
+        m22->setSizePolicy(sizePolicy2);
         m22->setMinimumSize(QSize(40, 40));
         m22->setMaximumSize(QSize(40, 40));
         m22->setFrameShape(QFrame::Box);
@@ -246,8 +267,8 @@ public:
 
         m33 = new QLabel(centralwidget);
         m33->setObjectName(QString::fromUtf8("m33"));
-        sizePolicy1.setHeightForWidth(m33->sizePolicy().hasHeightForWidth());
-        m33->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(m33->sizePolicy().hasHeightForWidth());
+        m33->setSizePolicy(sizePolicy2);
         m33->setMinimumSize(QSize(40, 40));
         m33->setMaximumSize(QSize(40, 40));
         m33->setFrameShape(QFrame::Box);
@@ -257,8 +278,8 @@ public:
 
         m11 = new QLabel(centralwidget);
         m11->setObjectName(QString::fromUtf8("m11"));
-        sizePolicy1.setHeightForWidth(m11->sizePolicy().hasHeightForWidth());
-        m11->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(m11->sizePolicy().hasHeightForWidth());
+        m11->setSizePolicy(sizePolicy2);
         m11->setMinimumSize(QSize(40, 40));
         m11->setMaximumSize(QSize(40, 40));
         m11->setFrameShape(QFrame::Box);
@@ -268,8 +289,8 @@ public:
 
         m13 = new QLabel(centralwidget);
         m13->setObjectName(QString::fromUtf8("m13"));
-        sizePolicy1.setHeightForWidth(m13->sizePolicy().hasHeightForWidth());
-        m13->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(m13->sizePolicy().hasHeightForWidth());
+        m13->setSizePolicy(sizePolicy2);
         m13->setMinimumSize(QSize(40, 40));
         m13->setMaximumSize(QSize(40, 40));
         m13->setFrameShape(QFrame::Box);
@@ -279,8 +300,8 @@ public:
 
         m12 = new QLabel(centralwidget);
         m12->setObjectName(QString::fromUtf8("m12"));
-        sizePolicy1.setHeightForWidth(m12->sizePolicy().hasHeightForWidth());
-        m12->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(m12->sizePolicy().hasHeightForWidth());
+        m12->setSizePolicy(sizePolicy2);
         m12->setMinimumSize(QSize(40, 40));
         m12->setMaximumSize(QSize(40, 40));
         m12->setFrameShape(QFrame::Box);
@@ -290,8 +311,8 @@ public:
 
         m23 = new QLabel(centralwidget);
         m23->setObjectName(QString::fromUtf8("m23"));
-        sizePolicy1.setHeightForWidth(m23->sizePolicy().hasHeightForWidth());
-        m23->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(m23->sizePolicy().hasHeightForWidth());
+        m23->setSizePolicy(sizePolicy2);
         m23->setMinimumSize(QSize(40, 40));
         m23->setMaximumSize(QSize(40, 40));
         m23->setFrameShape(QFrame::Box);
@@ -312,6 +333,7 @@ public:
         timelabel = new QLabel(centralwidget);
         timelabel->setObjectName(QString::fromUtf8("timelabel"));
         timelabel->setMaximumSize(QSize(16777215, 20));
+        timelabel->setFont(font1);
         timelabel->setAlignment(Qt::AlignCenter);
 
         verticalLayout->addWidget(timelabel);
@@ -323,6 +345,7 @@ public:
         sizePolicy.setHeightForWidth(closeImgButton->sizePolicy().hasHeightForWidth());
         closeImgButton->setSizePolicy(sizePolicy);
         closeImgButton->setMaximumSize(QSize(16777215, 45));
+        closeImgButton->setFont(font1);
 
         horizontalLayout_2->addWidget(closeImgButton);
 
@@ -331,6 +354,7 @@ public:
         sizePolicy.setHeightForWidth(exitButton->sizePolicy().hasHeightForWidth());
         exitButton->setSizePolicy(sizePolicy);
         exitButton->setMaximumSize(QSize(16777215, 45));
+        exitButton->setFont(font1);
 
         horizontalLayout_2->addWidget(exitButton);
 
@@ -340,7 +364,7 @@ public:
         diphw->setCentralWidget(centralwidget);
         menubar = new QMenuBar(diphw);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 409, 24));
+        menubar->setGeometry(QRect(0, 0, 409, 21));
         diphw->setMenuBar(menubar);
         statusbar = new QStatusBar(diphw);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -377,7 +401,7 @@ public:
         sizeBox->setItemText(8, QApplication::translate("diphw", "43x43", nullptr));
         sizeBox->setItemText(9, QApplication::translate("diphw", "85x85", nullptr));
 
-        convButton->setText(QApplication::translate("diphw", "convolution", nullptr));
+        convButton->setText(QApplication::translate("diphw", "Convolution", nullptr));
         zcButton->setText(QApplication::translate("diphw", "Zero-Corssing", nullptr));
         label_3->setText(QApplication::translate("diphw", "Threshold", nullptr));
         label->setText(QApplication::translate("diphw", "Selected kernel (only showing 3x3 around the center)", nullptr));

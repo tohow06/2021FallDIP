@@ -19,8 +19,8 @@ void diphw::on_openButton_clicked()
 {
 
     QString fileName = QFileDialog::getOpenFileName(this,
-//        tr("Open Image"), ".",
-        tr("Open Image"),"/Users/tohow/Documents/QtQt/2021FallDIP/HW3/B06611008_HW3/code/data/.",
+        tr("Open Image"), ".",
+//        tr("Open Image"),"/Users/tohow/Documents/QtQt/2021FallDIP/HW3/B06611008_HW3/code/data/.",
         tr("Image Files (*.png *.jpg *.jpeg *.bmp"));
     if(fileName != NULL)
     {
