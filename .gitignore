@@ -1,0 +1,8 @@
+*.o
+*.Debug
+*.pro.user
+*.Release
+*.qmake.stash
+Makefile
+*.obj
+*.exe

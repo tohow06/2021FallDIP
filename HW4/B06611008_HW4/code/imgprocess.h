@@ -3,8 +3,9 @@
 
 #include <map>
 #include <opencv2/opencv.hpp>
-#include <opencv2/imgcodecs.hpp>
-#include <opencv2/imgproc.hpp>
+//#include <opencv2/imgcodecs.hpp>
+//#include <opencv2/imgproc.hpp>
+//#include <opencv2/highgui.hpp>
 
 class ImgProcess{
     public:
@@ -36,6 +37,8 @@ class ImgProcess{
 
         void calcPAS(const cv::Mat& inputImg, cv::Mat& outputImg);
         void idealFilter(cv::Mat& inputOutput_H, int radius, int flag);
+        void gaussFilter(cv::Mat& inputOutput_H, double D0, int flag);
+        void butterFilter(cv::Mat& inputOutput_H, double D0, int n, int flag);
 
         cv::Mat showCenFS(cv::Mat);
         cv::Mat showPAS(cv::Mat);

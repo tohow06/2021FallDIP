@@ -155,6 +155,7 @@ void diphw::on_showFSButton_clicked()
 
     timer.start();
     show = this->imgp.showCenFS(gray);
+    this->myImg2 = show.clone();
     int t = timer.elapsed();
     char txt[40] = "";
     snprintf(txt,40,"Execution time: %d ms",t);
@@ -171,22 +172,26 @@ void diphw::on_showPASButton_clicked()
     gray = this->imgp.grayScaleA(this->myImg).clone();
     gray.convertTo(gray,CV_8U);
     show = this->imgp.showPAS(gray);
-    imshow("Phase angle)",show);
+
+    imshow("Phase angle",show);
 }
 
 
 void diphw::on_ifftButton_clicked()
 {
+
+
     cv::Mat gray, inputImg, inversed;
     gray = this->imgp.grayScaleA(this->myImg).clone();
-    inputImg = gray.clone();
     gray.convertTo(gray, CV_8U);
+
+    inputImg = gray.clone();
 
     cv::Mat planes[2] = { cv::Mat_<float>(inputImg.clone()), cv::Mat::zeros(inputImg.size(), CV_32F) };
     cv::Mat complexI;
     merge(planes, 2, complexI);
     dft(complexI, complexI);
-
+//    this->imgp.fftshift(complexI,complexI);
     idft(complexI,complexI);
     split(complexI, planes);
     inversed = planes[0];
@@ -197,7 +202,8 @@ void diphw::on_ifftButton_clicked()
     cv::absdiff(gray,inversed,diff);
     cv::hconcat(gray,inversed,outputImg);
     cv::hconcat(outputImg,diff,outputImg);
-    imshow("Difference between dft and idft", outputImg);
+    cv::namedWindow("Difference between dft and idft",cv::WINDOW_NORMAL);
+    cv::imshow("Difference between dft and idft", outputImg);
 }
 
 

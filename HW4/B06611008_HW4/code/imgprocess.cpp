@@ -622,19 +622,47 @@ void ImgProcess::idealFilter(Mat& inputOutput_H, int radius, int flag)
 //frequency domain gaussion filter
 //flag = 0 mean to lowpass
 //flag = 1 mean to highpass
-void ImgProcess::gaussFilter(Mat& inputOutput_H, int D0, int flag)
+void ImgProcess::gaussFilter(Mat& inputOutput_H, double D0, int flag)
 {
     int hRows = inputOutput_H.rows;
     int hCols = inputOutput_H.cols;
     int centerX = (int)hRows/2;
     int centerY = (int)hCols/2;
+    int sign = +1;
+    if(flag == 0){
+        sign = -1;
+    }
     for(int i = 0; i< hRows; i++){
         for (int j = 0; j < hCols; j++){
-            double D;
-            D
+             double dis = sqrt(pow((i-centerX),2)+pow((j-centerY),2));
+             inputOutput_H.at<float>(i,j) = exp(sign*dis/2/D0/D0);
         }
     }
 }
+
+//frequency domain butterworth filter
+//flag = 0 mean to lowpass
+//flag = 1 mean to highpass
+void ImgProcess::butterFilter(Mat& inputOutput_H, double D0, int n, int flag)
+{
+    int hRows = inputOutput_H.rows;
+    int hCols = inputOutput_H.cols;
+    int centerX = (int)hRows/2;
+    int centerY = (int)hCols/2;
+    int sign = +1;
+    if(flag == 0){
+        sign =-1;
+    }
+    for(int i = 0; i< hRows; i++){
+        for (int j = 0; j < hCols; j++){
+             double dis = sqrt(pow((i-centerX),2)+pow((j-centerY),2));
+             double dd = pow(D0/dis,sign);
+             inputOutput_H.at<float>(i,j) = 1/(1+pow(dd,2*n));
+        }
+    }
+}
+
+
 
 //return log(1+centered fourier specturm)
 Mat ImgProcess::showCenFS(Mat src)
