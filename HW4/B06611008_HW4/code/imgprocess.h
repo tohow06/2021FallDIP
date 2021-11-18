@@ -3,6 +3,8 @@
 
 #include <map>
 #include <opencv2/opencv.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 
 class ImgProcess{
     public:
@@ -25,6 +27,18 @@ class ImgProcess{
         cv::Mat imRescale(cv::Mat, int);
         cv::Mat zeroCross(cv::Mat, double);
 
+        //-----------from opencv document
+        void fftshift(const cv::Mat& inputImg, cv::Mat& outputImg);
+        void filter2DFreq(const cv::Mat& inputImg, cv::Mat& outputImg, const cv::Mat& H);
+        void synthesizeFilterH(cv::Mat& inputOutput_H, cv::Point center, int radius);
+        void calcFSD(const cv::Mat& inputImg, cv::Mat& outputImg, int flag = 0);
+        //------------
+
+        void calcPAS(const cv::Mat& inputImg, cv::Mat& outputImg);
+        void idealFilter(cv::Mat& inputOutput_H, int radius, int flag);
+
+        cv::Mat showCenFS(cv::Mat);
+        cv::Mat showPAS(cv::Mat);
 
 };
 

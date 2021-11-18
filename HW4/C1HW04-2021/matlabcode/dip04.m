@@ -7,34 +7,46 @@ clear variables
 
 %% 
 
-img = imread('./DIP3E_Original_Images_CH04/Fig0424(a)(rectangle).tif');
-imshow(img)
+f = imread('./DIP3E_Original_Images_CH04/Fig0424(a)(rectangle).tif');
+imshow(f)
+% imwrite(img,'rectangle.jpg');
 
-%% 
+%% rectangle
 
-Y = fft2(img);
-sY = fftshift(Y);
-spec = abs(sY).^2;
+% PQ = paddedsize(size(f));
+% F = fft2(f,PQ(1),PQ(2));
+F = fft2(f);
+Fc = fftshift(F);
+S = abs(Fc);
 
-figure
-imshow(imrescale(spec, 255))
+reS = imrescale(S,255);
+reS = cast(reS,'uint8');
+figure, imshow(reS)
 
-% figure
-% imshow(imrescale(abs(Y).^2, 255))
-% figure
-% imshow(imrescale(abs(fftshift(Y)).^2, 255))
-% figure
-% imshow(imrescale(1+log(abs(fftshift(Y)).^2),255))
-
-
-
-
+logS = log(1+S);
+relogS = imrescale(logS,255);
+relogS = cast(relogS,'uint8');
+figure, imshow(relogS)
 
 
+P=angle(F);
+reP = imrescale(P,255);
+reP = cast(reP,'uint8');
+figure, imshow(reP)
 
-%%
-function gs=imrescale(src,K)
-    srcm = min(min(src));
-    gm=src-srcm;
-    gs = K*(gm/max(max(gm)));
-end
+
+%% characters_test_pattern
+
+cha = imread('./DIP3E_Original_Images_CH04/Fig0441(a)(characters_test_pattern).tif');
+imshow(cha)
+
+
+
+
+
+
+
+
+
+
+

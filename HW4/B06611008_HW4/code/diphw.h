@@ -39,6 +39,14 @@ private slots:
 
     void on_thresSlider_valueChanged(int value);
 
+    void on_showFSButton_clicked();
+
+    void on_showPASButton_clicked();
+
+    void on_ifftButton_clicked();
+
+    void on_filterButton_clicked();
+
 private:
     Ui::diphw *ui;
     cv::Mat myImg;

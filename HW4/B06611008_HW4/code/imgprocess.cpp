@@ -3,7 +3,7 @@
 
 
 using namespace cv;
-
+using namespace std;
 //calculate histogram in integer from 0 to 255
 Mat ImgProcess::calCalHist(Mat srcM){
     Mat m;
@@ -514,6 +514,145 @@ Mat ImgProcess::zeroCross(Mat src, double thre)
             }
         }
     }
+    return dst;
+}
+
+
+void ImgProcess::fftshift(const Mat& inputImg, Mat& outputImg)
+{
+    outputImg = inputImg.clone();
+    int cx = outputImg.cols / 2;
+    int cy = outputImg.rows / 2;
+    Mat q0(outputImg, Rect(0, 0, cx, cy));
+    Mat q1(outputImg, Rect(cx, 0, cx, cy));
+    Mat q2(outputImg, Rect(0, cy, cx, cy));
+    Mat q3(outputImg, Rect(cx, cy, cx, cy));
+    Mat tmp;
+    q0.copyTo(tmp);
+    q3.copyTo(q0);
+    tmp.copyTo(q3);
+    q1.copyTo(tmp);
+    q2.copyTo(q1);
+    tmp.copyTo(q2);
+}
+void ImgProcess::filter2DFreq(const Mat& inputImg, Mat& outputImg, const Mat& H)
+{
+    Mat planes[2] = { Mat_<float>(inputImg.clone()), Mat::zeros(inputImg.size(), CV_32F) };
+    Mat complexI;
+    merge(planes, 2, complexI);
+    dft(complexI, complexI, DFT_SCALE);
+    Mat planesH[2] = { Mat_<float>(H.clone()), Mat::zeros(H.size(), CV_32F) };
+    Mat complexH;
+    merge(planesH, 2, complexH);
+    Mat complexIH;
+    mulSpectrums(complexI, complexH, complexIH, 0);
+    idft(complexIH, complexIH);
+    split(complexIH, planes);
+    outputImg = planes[0];
+}
+void ImgProcess::synthesizeFilterH(Mat& inputOutput_H, Point center, int radius)
+{
+    Point c2 = center, c3 = center, c4 = center;
+    c2.y = inputOutput_H.rows - center.y;
+    c3.x = inputOutput_H.cols - center.x;
+    c4 = Point(c3.x,c2.y);
+    circle(inputOutput_H, center, radius, 0, -1, 8);
+    circle(inputOutput_H, c2, radius, 0, -1, 8);
+    circle(inputOutput_H, c3, radius, 0, -1, 8);
+    circle(inputOutput_H, c4, radius, 0, -1, 8);
+}
+// Function calculates FSD(fourier spectrum density) by fft with two flags
+// flag = 0 means to return FSD
+// flag = 1 means to return log(FSD)
+void ImgProcess::calcFSD(const Mat& inputImg, Mat& outputImg, int flag)
+{
+    Mat planes[2] = { Mat_<float>(inputImg.clone()), Mat::zeros(inputImg.size(), CV_32F) };
+    Mat complexI;
+    merge(planes, 2, complexI);
+    dft(complexI, complexI);
+    split(complexI, planes);                // planes[0] = Re(DFT(I)), planes[1] = Im(DFT(I))
+
+    Mat imgFSD;
+    magnitude(planes[0], planes[1], imgFSD);
+    outputImg = imgFSD;
+
+    // logFSD = log(1 + FSD)
+    if (flag)
+    {
+        Mat imglogFSD;
+        imglogFSD = imgFSD + Scalar::all(1);
+        log(imglogFSD, imglogFSD);
+        outputImg = imglogFSD;
+    }
+}
+
+// Function calculates PAS(phase angle spectrum) by fft with two flags
+void ImgProcess::calcPAS(const Mat& inputImg, Mat& outputImg)
+{
+    Mat planes[2] = { Mat_<float>(inputImg.clone()), Mat::zeros(inputImg.size(), CV_32F) };
+    Mat complexI;
+    merge(planes, 2, complexI);
+    dft(complexI, complexI);
+    split(complexI, planes);                // planes[0] = Re(DFT(I)), planes[1] = Im(DFT(I))
+
+    Mat imgFSD;
+    phase(planes[0],planes[1],imgFSD);
+    outputImg = imgFSD;
+}
+
+//frequency domain ideal filter
+//flag = 0 mean to lowpass
+//flag = 1 mean to highpass
+void ImgProcess::idealFilter(Mat& inputOutput_H, int radius, int flag)
+{
+    int hRows = inputOutput_H.rows;
+    int hCols = inputOutput_H.cols;
+    int centerX = (int)hRows/2;
+    int centerY = (int)hCols/2;
+    Point center = Point(centerX,centerY);
+    circle(inputOutput_H, center, radius, 0, FILLED, LINE_8);
+
+    if (flag == 0) {
+        Mat one = Mat(inputOutput_H.size(),CV_32F,Scalar(1));
+        bitwise_xor(inputOutput_H,one,inputOutput_H);
+    }
+}
+
+
+//frequency domain gaussion filter
+//flag = 0 mean to lowpass
+//flag = 1 mean to highpass
+void ImgProcess::gaussFilter(Mat& inputOutput_H, int D0, int flag)
+{
+    int hRows = inputOutput_H.rows;
+    int hCols = inputOutput_H.cols;
+    int centerX = (int)hRows/2;
+    int centerY = (int)hCols/2;
+    for(int i = 0; i< hRows; i++){
+        for (int j = 0; j < hCols; j++){
+            double D;
+            D
+        }
+    }
+}
+
+//return log(1+centered fourier specturm)
+Mat ImgProcess::showCenFS(Mat src)
+{
+    Mat dst;
+    calcFSD(src,dst,1);
+    fftshift(dst,dst);
+    dst = imRescale(dst,255);
+    dst.convertTo(dst,CV_8U);
+    return dst;
+}
+
+Mat ImgProcess::showPAS(Mat src)
+{
+    Mat dst;
+    calcPAS(src,dst);
+    dst = imRescale(dst,255);
+    dst.convertTo(dst,CV_8U);
     return dst;
 }
 

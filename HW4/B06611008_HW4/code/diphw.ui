@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>409</width>
-    <height>567</height>
+    <height>572</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,7 +25,7 @@
        </font>
       </property>
       <property name="text">
-       <string>HW03</string>
+       <string>HW04</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -721,6 +721,38 @@
       </item>
      </layout>
     </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QPushButton" name="showFSButton">
+        <property name="text">
+         <string>fourier specturm</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="showPASButton">
+        <property name="text">
+         <string>Phase Angle</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QPushButton" name="ifftButton">
+      <property name="text">
+       <string>inverse Fourier transform and comparison</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="filterButton">
+      <property name="text">
+       <string>filterButton</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -729,7 +761,7 @@
      <x>0</x>
      <y>0</y>
      <width>409</width>
-     <height>21</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>

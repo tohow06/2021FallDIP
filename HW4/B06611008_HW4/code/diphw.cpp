@@ -2,6 +2,8 @@
 #include "ui_diphw.h"
 #include "imgprocess.h"
 
+using namespace std;
+
 diphw::diphw(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::diphw)
@@ -19,8 +21,8 @@ void diphw::on_openButton_clicked()
 {
 
     QString fileName = QFileDialog::getOpenFileName(this,
-        tr("Open Image"), ".",
-//        tr("Open Image"),"/Users/tohow/Documents/QtQt/2021FallDIP/HW3/B06611008_HW3/code/data/.",
+//        tr("Open Image"), ".",
+        tr("Open Image"),"/Users/tohow/Documents/QtQt/2021FallDIP/HW4/.",
         tr("Image Files (*.png *.jpg *.jpeg *.bmp"));
     if(fileName != NULL)
     {
@@ -140,5 +142,70 @@ void diphw::on_zcButton_clicked()
 void diphw::on_thresSlider_valueChanged(int value)
 {
     this->zcThres = value;
+}
+
+
+void diphw::on_showFSButton_clicked()
+{
+    cv::Mat gray,show;
+    QElapsedTimer timer;
+
+    gray = this->imgp.grayScaleA(this->myImg).clone();
+    gray.convertTo(gray,CV_8U);
+
+    timer.start();
+    show = this->imgp.showCenFS(gray);
+    int t = timer.elapsed();
+    char txt[40] = "";
+    snprintf(txt,40,"Execution time: %d ms",t);
+    ui->timelabel->setText(txt);
+
+    snprintf(txt,40, "centered fourier specturm  %d ms",t);
+    imshow(txt,show);
+}
+
+
+void diphw::on_showPASButton_clicked()
+{
+    cv::Mat gray,show;
+    gray = this->imgp.grayScaleA(this->myImg).clone();
+    gray.convertTo(gray,CV_8U);
+    show = this->imgp.showPAS(gray);
+    imshow("Phase angle)",show);
+}
+
+
+void diphw::on_ifftButton_clicked()
+{
+    cv::Mat gray, inputImg, inversed;
+    gray = this->imgp.grayScaleA(this->myImg).clone();
+    inputImg = gray.clone();
+    gray.convertTo(gray, CV_8U);
+
+    cv::Mat planes[2] = { cv::Mat_<float>(inputImg.clone()), cv::Mat::zeros(inputImg.size(), CV_32F) };
+    cv::Mat complexI;
+    merge(planes, 2, complexI);
+    dft(complexI, complexI);
+
+    idft(complexI,complexI);
+    split(complexI, planes);
+    inversed = planes[0];
+    inversed = this->imgp.imRescale(inversed,255).clone();
+    inversed.convertTo(inversed,CV_8U);
+
+    cv::Mat diff,outputImg;
+    cv::absdiff(gray,inversed,diff);
+    cv::hconcat(gray,inversed,outputImg);
+    cv::hconcat(outputImg,diff,outputImg);
+    imshow("Difference between dft and idft", outputImg);
+}
+
+
+void diphw::on_filterButton_clicked()
+{
+    cv::Mat H = cv::Mat(7,7,CV_32F, cv::Scalar(1));
+    cout<<"H = "<<H<<endl;
+    this->imgp.idealFilter(H,2,1);
+    cout<<"H = "<<H<<endl;
 }
 

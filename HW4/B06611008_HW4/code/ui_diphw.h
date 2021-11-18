@@ -61,6 +61,11 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QPushButton *closeImgButton;
     QPushButton *exitButton;
+    QHBoxLayout *horizontalLayout_4;
+    QPushButton *showFSButton;
+    QPushButton *showPASButton;
+    QPushButton *ifftButton;
+    QPushButton *filterButton;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -68,7 +73,7 @@ public:
     {
         if (diphw->objectName().isEmpty())
             diphw->setObjectName(QString::fromUtf8("diphw"));
-        diphw->resize(409, 567);
+        diphw->resize(409, 572);
         centralwidget = new QWidget(diphw);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         verticalLayout = new QVBoxLayout(centralwidget);
@@ -361,10 +366,35 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_2);
 
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
+        showFSButton = new QPushButton(centralwidget);
+        showFSButton->setObjectName(QString::fromUtf8("showFSButton"));
+
+        horizontalLayout_4->addWidget(showFSButton);
+
+        showPASButton = new QPushButton(centralwidget);
+        showPASButton->setObjectName(QString::fromUtf8("showPASButton"));
+
+        horizontalLayout_4->addWidget(showPASButton);
+
+
+        verticalLayout->addLayout(horizontalLayout_4);
+
+        ifftButton = new QPushButton(centralwidget);
+        ifftButton->setObjectName(QString::fromUtf8("ifftButton"));
+
+        verticalLayout->addWidget(ifftButton);
+
+        filterButton = new QPushButton(centralwidget);
+        filterButton->setObjectName(QString::fromUtf8("filterButton"));
+
+        verticalLayout->addWidget(filterButton);
+
         diphw->setCentralWidget(centralwidget);
         menubar = new QMenuBar(diphw);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 409, 21));
+        menubar->setGeometry(QRect(0, 0, 409, 24));
         diphw->setMenuBar(menubar);
         statusbar = new QStatusBar(diphw);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -378,7 +408,7 @@ public:
     void retranslateUi(QMainWindow *diphw)
     {
         diphw->setWindowTitle(QApplication::translate("diphw", "diphw", nullptr));
-        label_2->setText(QApplication::translate("diphw", "HW03", nullptr));
+        label_2->setText(QApplication::translate("diphw", "HW04", nullptr));
         openButton->setText(QApplication::translate("diphw", "Open Image", nullptr));
         matrixBox->setItemText(0, QApplication::translate("diphw", "choose kernel", nullptr));
         matrixBox->setItemText(1, QApplication::translate("diphw", "box kernel", nullptr));
@@ -417,6 +447,10 @@ public:
         timelabel->setText(QApplication::translate("diphw", "Choose a kernel and size then press convolution", nullptr));
         closeImgButton->setText(QApplication::translate("diphw", "Clear", nullptr));
         exitButton->setText(QApplication::translate("diphw", "Close", nullptr));
+        showFSButton->setText(QApplication::translate("diphw", "fourier specturm", nullptr));
+        showPASButton->setText(QApplication::translate("diphw", "Phase Angle", nullptr));
+        ifftButton->setText(QApplication::translate("diphw", "inverse Fourier transform and comparison", nullptr));
+        filterButton->setText(QApplication::translate("diphw", "filterButton", nullptr));
     } // retranslateUi
 
 };
