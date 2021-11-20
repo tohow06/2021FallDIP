@@ -22,8 +22,8 @@ void diphw::on_openButton_clicked()
 
     QString fileName = QFileDialog::getOpenFileName(this,
 //        tr("Open Image"), ".",
-        tr("Open Image"),"/Users/tohow/Documents/QtQt/2021FallDIP/HW4/.",
-        tr("Image Files (*.png *.jpg *.jpeg *.bmp"));
+        tr("Open Image"),"/Users/tohow/Documents/QtQt/2021FallDIP/HW4/C1HW04-2021/.",
+        tr("Image Files (*.png *.jpg *.jpeg *.bmp *.tif"));
     if(fileName != NULL)
     {
 //        std::cout<<fileName.section("/",-1,-1).toStdString()<<std::endl;
@@ -207,11 +207,155 @@ void diphw::on_ifftButton_clicked()
 }
 
 
-void diphw::on_filterButton_clicked()
+void diphw::on_resetButton_clicked()
 {
-    cv::Mat H = cv::Mat(7,7,CV_32F, cv::Scalar(1));
-    cout<<"H = "<<H<<endl;
-    this->imgp.idealFilter(H,2,1);
-    cout<<"H = "<<H<<endl;
+    resetUiInput();
+}
+
+
+void diphw::on_idealButton_clicked()
+{
+    cv::Mat gray, imgout;
+    gray = this->imgp.grayScaleA(this->myImg).clone();
+    gray.convertTo(gray, CV_8U);
+    cv::Mat H = cv::Mat(gray.size(),CV_32F, cv::Scalar(1));
+
+    double D0;
+    D0 = ui->idealD0->value();
+    int s = 0;
+    if (D0 < 0){
+        s = 1;
+        D0 = -D0;
+    }
+    this->imgp.idealFilter(H,D0,s);
+    this->imgp.fftshift(H,H);
+    this->imgp.filter2DFreq(gray, imgout, H);
+    imgout = this->imgp.imRescale(imgout,255);
+    imgout.convertTo(imgout,CV_8U);
+
+    char winTitle[40] = "";
+    snprintf(winTitle,40,"ideal filter result with D0 = %.1f",D0);
+
+    cv::imshow(winTitle,imgout);
+
+}
+
+
+void diphw::on_butterButton_clicked()
+{
+    cv::Mat gray, imgout;
+    gray = this->imgp.grayScaleA(this->myImg).clone();
+    gray.convertTo(gray, CV_8U);
+
+    double D0;
+    D0 = ui->butterD0->value();
+    int n;
+    n = ui->butternBox->value();
+    int s = 0;
+    if (D0 < 0){
+        s = 1;
+        D0 = -D0;
+    }
+
+    cv::Mat H = cv::Mat(gray.size(),CV_32F, cv::Scalar(1));
+    this->imgp.butterFilter(H,D0,n,s);
+    this->imgp.fftshift(H,H);
+    this->imgp.filter2DFreq(gray, imgout, H);
+    imgout = this->imgp.imRescale(imgout,255);
+    imgout.convertTo(imgout,CV_8U);
+
+    char winTitle[50] = "";
+    snprintf(winTitle,sizeof(winTitle),"Butterworth filter result with D0 = %.f n = %d",D0, n);
+    cv::imshow(winTitle,imgout);
+}
+
+
+void diphw::on_GaussButton_clicked()
+{
+    cv::Mat gray, imgout;
+    gray = this->imgp.grayScaleA(this->myImg).clone();
+    gray.convertTo(gray, CV_8U);
+
+    double D0;
+    D0 = ui->GaussD0->value()/10;
+    int s = 0;
+    if (D0 < 0){
+        s = 1;
+        D0 = -D0;
+    }
+
+    cv::Mat H = cv::Mat(gray.size(),CV_32F, cv::Scalar(1));
+    this->imgp.gaussFilter(H,D0,s);
+    this->imgp.fftshift(H,H);
+    this->imgp.filter2DFreq(gray, imgout, H);
+    imgout = this->imgp.imRescale(imgout,255);
+    imgout.convertTo(imgout,CV_8U);
+
+    char winTitle[50] = "";
+    snprintf(winTitle,sizeof(winTitle),"Gaussion filter result with D0 = %.1f",D0);
+    cv::imshow(winTitle,imgout);
+}
+
+void diphw::resetUiInput(){
+    ui->idealD0->setValue(0);
+    ui->butterD0->setValue(0);
+    ui->butternBox->setValue(0);
+    ui->GaussD0->setValue(0);
+}
+
+void diphw::on_homoButton_clicked()
+{
+    cv::Mat gray, imgout;
+    gray = this->imgp.grayScaleA(this->myImg).clone();
+    gray.convertTo(gray, CV_8U);
+
+    double D0, rH, rL, c;
+    D0 = ui->homoD0->value();
+    rH = ui->homorH->value()/10;
+    rL = ui->homorL->value()/100;
+    c = ui->homoC->value();
+
+    cv::Mat H = cv::Mat(gray.size(),CV_32F, cv::Scalar(1));
+    this->imgp.homoFilter(H,D0,rH,rL,c);
+    this->imgp.fftshift(H,H);
+    this->imgp.homoFilter2DFreq(gray, imgout, H);
+    imgout = this->imgp.imRescale(imgout,255);
+    imgout.convertTo(imgout,CV_8U);
+
+    char winTitle[80] = "";
+    snprintf(winTitle,sizeof(winTitle),"homomorphic filter result with D0=%.f rH=%.1f rL=%.1f c=%.f",D0,rH,rL,c);
+    cv::imshow(winTitle,imgout);
+
+}
+
+void diphw::on_motionButton_clicked()
+{
+    cv::Mat gray, imgout;
+    gray = this->imgp.grayScaleA(this->myImg).clone();
+    gray.convertTo(gray, CV_8U);
+
+    cv::Mat H = cv::Mat(gray.size(),CV_32FC2, cv::Scalar(1,1));
+    this->imgp.motionFilter(H,0.1,0.1,1);
+    this->mykernel = H.clone();
+
+    this->imgp.fftshift(H,H);
+    this->imgp.filter2DFreq(gray, imgout, H);
+    imgout = this->imgp.imRescale(imgout,255);
+    imgout.convertTo(imgout,CV_8U);
+    this->myImg3 = imgout.clone();
+
+    char winTitle[80] = "";
+    snprintf(winTitle,sizeof(winTitle),"motion blurred result");
+    cv::imshow(winTitle,imgout);
+}
+
+
+void diphw::on_invFilButton_clicked()
+{
+    cv::Mat H, imgout;
+    H = 1/this->mykernel;
+    cout<<"HH = "<<H<<endl;
+//    this->imgp.filter2DFreq(this->myImg3,imgout,)
+
 }
 

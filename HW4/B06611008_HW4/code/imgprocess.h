@@ -39,6 +39,9 @@ class ImgProcess{
         void idealFilter(cv::Mat& inputOutput_H, int radius, int flag);
         void gaussFilter(cv::Mat& inputOutput_H, double D0, int flag);
         void butterFilter(cv::Mat& inputOutput_H, double D0, int n, int flag);
+        void homoFilter2DFreq(const cv::Mat& inputImg, cv::Mat& outputImg, const cv::Mat& H);
+        void homoFilter(cv::Mat& inputOutput_H, double D0, double rH, double rL, double c);
+        void motionFilter(cv::Mat& inputOutput_H, double a, double b, double T);
 
         cv::Mat showCenFS(cv::Mat);
         cv::Mat showPAS(cv::Mat);

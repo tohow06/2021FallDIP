@@ -65,6 +65,71 @@ cha = imread('./DIP3E_Original_Images_CH04/Fig0441(a)(characters_test_pattern).t
 imshow(cha)
 
 
+%% homomorphic filtering
+
+pet = imread('./DIP3E_Original_Images_CH04/Fig0462(a)(PET_image).tif');
+imshow(pet)
+
+
+pet=cast(pet,'double');
+logp = log2(pet);
+logP = fft2(logp);
+
+%% multiply in freq domain
+
+a=[1 2 3];
+b=[1+1i 1+1i 1+1i];
+A=fft(a); 
+% A = [6 -1.5+0.866i -1.5-0.866i];
+AB =  A.*b;
+
+%% motion blurred
+
+book = imread('../Fig0526(a)(original_DIP).tif');
+b = im2double(book);
+B = fft2(b);
+Bc = fftshift(B);
+a = 0.1;
+b = 0.1;
+T=1;
+[M, N] = size(B);
+
+% generating H
+% puavb不能全照課本的公式
+H = zeros(M, N);
+center_u = M/2+1;
+center_v = N/2+1;
+for u = 1:M
+    for v = 1:N
+        puavb = pi*((u-center_u)*a + (v-center_v)*b);
+%         puavb = pi*(u*a + v*b);
+        if puavb == 0
+            puavb = 0.000000000001;
+        end
+        
+        H(u,v) = (T/(puavb))*sin(puavb)*exp(-1i*puavb);
+        
+        if puavb==0
+            disp(H(u,v))
+        end
+    end
+end
+
+H = fftshift(H);
+BH = B.*H;
+bh = ifft2(BH);
+
+figure, imshow(book,[])
+figure, imshow(bh,[])
+
+% use inverse filter
+
+a = fft2(bh);
+adh = a./H;
+out = ifft2(adh);
+figure, imshow(out, [])
+
+
 
 
 

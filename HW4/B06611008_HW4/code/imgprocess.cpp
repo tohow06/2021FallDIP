@@ -541,9 +541,15 @@ void ImgProcess::filter2DFreq(const Mat& inputImg, Mat& outputImg, const Mat& H)
     Mat complexI;
     merge(planes, 2, complexI);
     dft(complexI, complexI, DFT_SCALE);
-    Mat planesH[2] = { Mat_<float>(H.clone()), Mat::zeros(H.size(), CV_32F) };
-    Mat complexH;
-    merge(planesH, 2, complexH);
+
+    Mat planesH[2], complexH;
+    if (H.channels() == 1){
+        planesH[0] = Mat_<float>(H.clone());
+        planesH[1] = Mat::zeros(H.size(), CV_32F);
+        merge(planesH, 2, complexH);
+    }else if (H.channels() == 2){
+        complexH = H;
+    }
     Mat complexIH;
     mulSpectrums(complexI, complexH, complexIH, 0);
     idft(complexIH, complexIH);
@@ -662,6 +668,71 @@ void ImgProcess::butterFilter(Mat& inputOutput_H, double D0, int n, int flag)
     }
 }
 
+//frequency domain homomorphic filter
+void ImgProcess::homoFilter(Mat& inputOutput_H, double D0, double rH, double rL, double c)
+{
+    int hRows = inputOutput_H.rows;
+    int hCols = inputOutput_H.cols;
+    int centerX = (int)hRows/2;
+    int centerY = (int)hCols/2;
+
+    for(int i = 0; i< hRows; i++){
+        for (int j = 0; j < hCols; j++){
+             double dis2 = pow((i-centerX),2)+pow((j-centerY),2);
+             inputOutput_H.at<float>(i,j) = (rH-rL)*(1-exp(-c*dis2/D0/D0)) + rL;
+        }
+    }
+}
+
+//perform homomorphic filtering
+void ImgProcess::homoFilter2DFreq(const Mat& inputImg, Mat& outputImg, const Mat& H)
+{
+
+    Mat logInput;
+    inputImg.convertTo(logInput,CV_32F);
+    logInput += 1;
+    log(logInput,logInput);
+
+    Mat planes[2] = { Mat_<float>(logInput.clone()), Mat::zeros(logInput.size(), CV_32F) };
+    Mat complexI;
+    merge(planes, 2, complexI);
+    dft(complexI, complexI, DFT_SCALE);
+    Mat planesH[2] = { Mat_<float>(H.clone()), Mat::zeros(H.size(), CV_32F) };
+    Mat complexH;
+    merge(planesH, 2, complexH);
+    Mat complexIH;
+    mulSpectrums(complexI, complexH, complexIH, 0);
+    idft(complexIH, complexIH);
+    split(complexIH, planes);
+
+    exp(planes[0],outputImg);
+}
+
+
+//frequency domain homomorphic filter
+void ImgProcess::motionFilter(Mat& inputOutput_H, double a, double b, double T)
+{
+    Mat planes[2];
+    split(inputOutput_H, planes);
+    int hRows = inputOutput_H.rows;
+    int hCols = inputOutput_H.cols;
+    int centerX = (int)hRows/2;
+    int centerY = (int)hCols/2;
+
+    for(int i = 0; i< hRows; i++){
+        for (int j = 0; j < hCols; j++){
+
+            double puavb = 3.1415926*((i-centerX)*a+(j-centerY)*b);
+            if (puavb == 0){
+                puavb = 0.000000001;
+            }
+            double head = T/puavb*sin(puavb);
+            planes[0].at<float>(i,j) = head*cos(puavb);
+            planes[1].at<float>(i,j) = -1*head*sin(puavb);
+        }
+    }
+    merge(planes, 2, inputOutput_H);
+}
 
 
 //return log(1+centered fourier specturm)

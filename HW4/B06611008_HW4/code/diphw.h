@@ -45,7 +45,20 @@ private slots:
 
     void on_ifftButton_clicked();
 
-    void on_filterButton_clicked();
+    void on_resetButton_clicked();
+
+    void on_idealButton_clicked();
+
+    void on_butterButton_clicked();
+
+    void on_GaussButton_clicked();
+
+    void on_homoButton_clicked();
+
+
+    void on_motionButton_clicked();
+
+    void on_invFilButton_clicked();
 
 private:
     Ui::diphw *ui;
@@ -56,6 +69,7 @@ private:
     ImgProcess imgp;
     float zcThres;
     void upDateMatrix();
+    void resetUiInput();
 
 };
 #endif // DIPHW_H
