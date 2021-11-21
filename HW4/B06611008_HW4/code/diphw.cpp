@@ -159,7 +159,7 @@ void diphw::on_showFSButton_clicked()
     int t = timer.elapsed();
     char txt[40] = "";
     snprintf(txt,40,"Execution time: %d ms",t);
-    ui->timelabel->setText(txt);
+    ui->infolabel->setText(txt);
 
     snprintf(txt,40, "centered fourier specturm  %d ms",t);
     imshow(txt,show);
@@ -202,7 +202,7 @@ void diphw::on_ifftButton_clicked()
     cv::absdiff(gray,inversed,diff);
     cv::hconcat(gray,inversed,outputImg);
     cv::hconcat(outputImg,diff,outputImg);
-    cv::namedWindow("Difference between dft and idft",cv::WINDOW_NORMAL);
+    cv::namedWindow("Difference between dft and idft",cv::WINDOW_NORMAL | cv::WINDOW_KEEPRATIO);
     cv::imshow("Difference between dft and idft", outputImg);
 }
 
@@ -311,8 +311,8 @@ void diphw::on_homoButton_clicked()
 
     double D0, rH, rL, c;
     D0 = ui->homoD0->value();
-    rH = ui->homorH->value()/10;
-    rL = ui->homorL->value()/100;
+    rH = (double)ui->homorH->value()/10;
+    rL = (double)ui->homorL->value()/100;
     c = ui->homoC->value();
 
     cv::Mat H = cv::Mat(gray.size(),CV_32F, cv::Scalar(1));
@@ -323,7 +323,7 @@ void diphw::on_homoButton_clicked()
     imgout.convertTo(imgout,CV_8U);
 
     char winTitle[80] = "";
-    snprintf(winTitle,sizeof(winTitle),"homomorphic filter result with D0=%.f rH=%.1f rL=%.1f c=%.f",D0,rH,rL,c);
+    snprintf(winTitle,sizeof(winTitle),"homomorphic filter result with D0=%.f rH=%.1f rL=%.2f c=%.f",D0,rH,rL,c);
     cv::imshow(winTitle,imgout);
 
 }
@@ -353,9 +353,33 @@ void diphw::on_motionButton_clicked()
 void diphw::on_invFilButton_clicked()
 {
     cv::Mat H, imgout;
-    H = 1/this->mykernel;
-    cout<<"HH = "<<H<<endl;
-//    this->imgp.filter2DFreq(this->myImg3,imgout,)
+    H = this->mykernel.clone();
+    H = this->imgp.invComplex(H);
 
+    this->imgp.filter2DFreq(this->myImg3, imgout, H);
+    imgout = this->imgp.imRescale(imgout,255);
+    imgout.convertTo(imgout,CV_8U);
+    this->myImg3 = imgout.clone();
+
+    char winTitle[80] = "";
+    snprintf(winTitle,sizeof(winTitle),"inverse filter result");
+    cv::imshow(winTitle,imgout);
+
+}
+
+
+void diphw::on_wieFilButton_clicked()
+{
+    cv::Mat H, imgout;
+    H = this->mykernel.clone();
+
+    this->imgp.WienerFilter2DFreq(this->myImg3, imgout, H, 0);
+    imgout = this->imgp.imRescale(imgout,255);
+    imgout.convertTo(imgout,CV_8U);
+    this->myImg3 = imgout.clone();
+
+    char winTitle[80] = "";
+    snprintf(winTitle,sizeof(winTitle),"inverse filter result");
+    cv::imshow(winTitle,imgout);
 }
 

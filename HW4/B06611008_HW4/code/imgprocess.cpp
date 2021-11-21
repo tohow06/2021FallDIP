@@ -734,6 +734,110 @@ void ImgProcess::motionFilter(Mat& inputOutput_H, double a, double b, double T)
     merge(planes, 2, inputOutput_H);
 }
 
+/*
+//https://stackoverflow.com/questions/15697663/how-to-do-inverse-on-complex-matrix-in-opencv
+//OpenCV does not support inversion of complex matrices.
+//You have to manipulate the complex matrix in a way to form a real matrix containing the real and imaginary parts of the complex matrix.
+cv::Mat ImgProcess::invComplex(const cv::Mat& m)
+{
+    //Create matrix with twice the dimensions of original
+    cv::Mat twiceM(m.rows * 2, m.cols * 2, CV_MAKE_TYPE(m.type(), 1));
+
+    //Separate real & imaginary parts
+    std::vector<cv::Mat> components;
+    cv::split(m, components);
+
+    cv::Mat real = components[0], imag = components[1];
+
+    //
+    cout<<"real.at<float>(2,2)="<<real.at<float>(2,2)<<endl;
+    cout<<"imag.at<float>(2,2)="<<imag.at<float>(2,2)<<endl;
+    //
+
+    //Copy values in quadrants of large matrix
+    real.copyTo(twiceM({ 0, 0, m.cols, m.rows })); //top-left
+    real.copyTo(twiceM({ m.cols, m.rows, m.cols, m.rows })); //bottom-right
+    imag.copyTo(twiceM({ m.cols, 0, m.cols, m.rows })); //top-right
+    cv::Mat(-imag).copyTo(twiceM({ 0, m.rows, m.cols, m.rows })); //bottom-left
+
+    //Invert the large matrix
+    cv::Mat twiceInverse = twiceM.inv();
+
+    cv::Mat inverse(m.cols, m.rows, m.type());
+
+    //Copy back real & imaginary parts
+    twiceInverse({ 0, 0, inverse.cols, inverse.rows }).copyTo(real);
+    twiceInverse({ inverse.cols, 0, inverse.cols, inverse.rows }).copyTo(imag);
+
+    //Merge real & imaginary parts into complex inverse matrix
+    cv::merge(components, inverse);
+
+    //
+    cout<<"components[0].at<float>(2,2)="<<components[0].at<float>(2,2)<<endl;
+    cout<<"components[1].at<float>(2,2)="<<components[1].at<float>(2,2)<<endl;
+    cout<<"components[0] = "<<components[0]<<endl;
+    //
+
+    return inverse;
+}
+*/
+
+//hand made complex reciprocal
+//Z = a+bi
+//1/Z = a/(a^2+b^2)-b/(a^2+b^2)i
+cv::Mat ImgProcess::invComplex(const cv::Mat& m)
+{
+    Mat planes[2], inverse;
+    split(m, planes);
+    int hRows = m.rows;
+    int hCols = m.cols;
+
+    for (int i=0;i<hRows;i++){
+        for(int j=0;j<hCols;j++){
+            double a = planes[0].at<float>(i,j);
+            double b = planes[1].at<float>(i,j);
+            double aabb = a*a+b*b;
+            planes[0].at<float>(i,j) = a/aabb;
+            planes[1].at<float>(i,j) = -b/aabb;
+        }
+    }
+    merge(planes, 2, inverse);
+    return inverse;
+}
+
+
+//perform Wiener filtering
+void ImgProcess::WienerFilter2DFreq(const Mat& inputImg, Mat& outputImg, const Mat& H, double K)
+{
+    Mat planes[2] = { Mat_<float>(inputImg.clone()), Mat::zeros(inputImg.size(), CV_32F) };
+    Mat complexI;
+    merge(planes, 2, complexI);
+    dft(complexI, complexI, DFT_SCALE);
+
+    //create the filter
+    Mat complexInvH;
+    complexInvH = this->invComplex(H).clone();
+    Mat hmag, invHaddK, complexhmag, complexInvHaddK;
+    magnitude(planes[0], planes[1], hmag);
+    pow(hmag,2,hmag);
+    invHaddK = 1.0f/(hmag + K);
+    planes[0] = hmag.clone();
+    merge(planes, 2, complexhmag);
+    planes[0] = invHaddK.clone();
+    merge(planes, 2, complexInvHaddK);
+    Mat complexIH;
+    mulSpectrums(complexInvH, complexhmag, complexIH, 0);
+    mulSpectrums(complexIH, complexInvHaddK, complexIH, 0);
+
+    //mul filter with img
+    Mat complexF;
+    mulSpectrums(complexI, complexIH, complexF, 0);
+
+    idft(complexF, complexF);
+    split(complexF, planes);
+    outputImg = planes[0];
+}
+
 
 //return log(1+centered fourier specturm)
 Mat ImgProcess::showCenFS(Mat src)

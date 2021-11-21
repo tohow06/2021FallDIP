@@ -1,8 +1,8 @@
-% function H=butterfilter(n, D0, sz)
-
-sz=[20 20];
-n=2;
-D0 = 20;
+function H=turbufilter(sz, k)
+% turbufilter creater turbulence. filter in freqency domain
+%   H=turbufilter(sz, k)
+%   k  = cut off frequency
+%   
 
 % Designing filter
 M = sz(1);
@@ -20,10 +20,10 @@ v(idy) = v(idy) - N;
 % and matrix U with each column is a copy of u 
 [V, U] = meshgrid(v, u);
   
-% Calculating Euclidean Distance
-D = sqrt(U.^2 + V.^2);
+% Calculating Square Euclidean Distance
+D = U.^2 + V.^2;
   
 % determining the filtering mask
-H = 1./(1 + (D./D0).^(2*n));
+H = exp(-k*D.^(5/6));
 
-% end
+end

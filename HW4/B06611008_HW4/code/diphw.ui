@@ -2,18 +2,39 @@
 <ui version="4.0">
  <class>diphw</class>
  <widget class="QMainWindow" name="diphw">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>411</width>
-    <height>719</height>
+    <width>377</width>
+    <height>610</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>diphw</string>
   </property>
+  <property name="animated">
+   <bool>true</bool>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout_6">
     <item>
      <widget class="QLabel" name="label_2">
@@ -54,6 +75,7 @@
       </property>
       <property name="font">
        <font>
+        <family>Fira Code</family>
         <pointsize>12</pointsize>
        </font>
       </property>
@@ -76,6 +98,14 @@
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
            <widget class="QPushButton" name="showFSButton">
+            <property name="font">
+             <font>
+              <family>Fira Code</family>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
             <property name="text">
              <string>fourier specturm</string>
             </property>
@@ -83,6 +113,14 @@
           </item>
           <item>
            <widget class="QPushButton" name="showPASButton">
+            <property name="font">
+             <font>
+              <family>Fira Code</family>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
             <property name="text">
              <string>Phase Angle</string>
             </property>
@@ -92,6 +130,14 @@
         </item>
         <item>
          <widget class="QPushButton" name="ifftButton">
+          <property name="font">
+           <font>
+            <family>Fira Code</family>
+            <pointsize>10</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
           <property name="text">
            <string>inverse Fourier transform and comparison</string>
           </property>
@@ -101,6 +147,18 @@
          <layout class="QHBoxLayout" name="horizontalLayout_10">
           <item>
            <widget class="QLabel" name="label_7">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>Fira Code</family>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
             <property name="text">
              <string>D0</string>
             </property>
@@ -136,6 +194,20 @@
           </item>
           <item>
            <widget class="QPushButton" name="idealButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>Fira Code</family>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
             <property name="text">
              <string>ideal filter</string>
             </property>
@@ -147,6 +219,12 @@
          <layout class="QHBoxLayout" name="horizontalLayout_8">
           <item>
            <widget class="QLabel" name="label_5">
+            <property name="font">
+             <font>
+              <family>Fira Code</family>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
             <property name="text">
              <string>D0</string>
             </property>
@@ -178,6 +256,7 @@
            <widget class="QLabel" name="label_8">
             <property name="font">
              <font>
+              <family>Fira Code</family>
               <pointsize>15</pointsize>
              </font>
             </property>
@@ -191,6 +270,14 @@
           </item>
           <item>
            <widget class="QPushButton" name="butterButton">
+            <property name="font">
+             <font>
+              <family>Fira Code</family>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
             <property name="text">
              <string>Butterworth filter</string>
             </property>
@@ -202,6 +289,12 @@
          <layout class="QHBoxLayout" name="horizontalLayout_7">
           <item>
            <widget class="QLabel" name="label_4">
+            <property name="font">
+             <font>
+              <family>Fira Code</family>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
             <property name="text">
              <string>D0</string>
             </property>
@@ -225,6 +318,14 @@
           </item>
           <item>
            <widget class="QPushButton" name="GaussButton">
+            <property name="font">
+             <font>
+              <family>Fira Code</family>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
             <property name="text">
              <string>Gaussian filter</string>
             </property>
@@ -234,12 +335,27 @@
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_13">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetDefaultConstraint</enum>
+          </property>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_12">
               <item>
                <widget class="QLabel" name="label_13">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Fira Code</family>
+                  <pointsize>10</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>rH</string>
                 </property>
@@ -247,6 +363,12 @@
               </item>
               <item>
                <widget class="QSlider" name="homorH">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimum">
                  <number>0</number>
                 </property>
@@ -261,6 +383,18 @@
              <layout class="QHBoxLayout" name="horizontalLayout_11">
               <item>
                <widget class="QLabel" name="label_12">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Fira Code</family>
+                  <pointsize>10</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>rL</string>
                 </property>
@@ -268,6 +402,12 @@
               </item>
               <item>
                <widget class="QSlider" name="homorL">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -279,6 +419,18 @@
              <layout class="QHBoxLayout" name="horizontalLayout_6">
               <item>
                <widget class="QLabel" name="label_11">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Fira Code</family>
+                  <pointsize>10</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>D0</string>
                 </property>
@@ -286,6 +438,15 @@
               </item>
               <item>
                <widget class="QSlider" name="homoD0">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximum">
+                 <number>20</number>
+                </property>
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -304,8 +465,15 @@
               </property>
               <item>
                <widget class="QLabel" name="label_6">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="font">
                  <font>
+                  <family>Fira Code</family>
                   <pointsize>15</pointsize>
                  </font>
                 </property>
@@ -319,6 +487,20 @@
               </item>
               <item>
                <widget class="QPushButton" name="homoButton">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Fira Code</family>
+                  <pointsize>10</pointsize>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                 </font>
+                </property>
                 <property name="text">
                  <string>homomorphic</string>
                 </property>
@@ -328,8 +510,22 @@
             </item>
             <item>
              <widget class="QLabel" name="label_9">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <family>Fira Code</family>
+                <pointsize>9</pointsize>
+                <strikeout>false</strikeout>
+                <kerning>true</kerning>
+               </font>
+              </property>
               <property name="text">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0&amp;lt;rH&amp;lt;9&lt;/p&gt;&lt;p&gt;0&amp;lt;rL&amp;lt;1&lt;/p&gt;&lt;p&gt;0&amp;lt;D0&amp;lt;99&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0&amp;lt;rH&amp;lt;9&lt;/p&gt;&lt;p&gt;0&amp;lt;rL&amp;lt;1&lt;/p&gt;&lt;p&gt;0&amp;lt;D0&amp;lt;20&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="textFormat">
                <enum>Qt::RichText</enum>
@@ -350,6 +546,14 @@
          <layout class="QHBoxLayout" name="horizontalLayout_14">
           <item>
            <widget class="QPushButton" name="motionButton">
+            <property name="font">
+             <font>
+              <family>Fira Code</family>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
             <property name="text">
              <string>motion blurred</string>
             </property>
@@ -357,6 +561,14 @@
           </item>
           <item>
            <widget class="QPushButton" name="gNosieButton">
+            <property name="font">
+             <font>
+              <family>Fira Code</family>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
             <property name="text">
              <string>zero-mean white Gaussian</string>
             </property>
@@ -368,6 +580,14 @@
          <layout class="QHBoxLayout" name="horizontalLayout_15">
           <item>
            <widget class="QPushButton" name="invFilButton">
+            <property name="font">
+             <font>
+              <family>Fira Code</family>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
             <property name="text">
              <string>inverse filtering</string>
             </property>
@@ -375,6 +595,14 @@
           </item>
           <item>
            <widget class="QPushButton" name="wieFilButton">
+            <property name="font">
+             <font>
+              <family>Fira Code</family>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
             <property name="text">
              <string>Wiener filter</string>
             </property>
@@ -1001,6 +1229,19 @@
      </widget>
     </item>
     <item>
+     <widget class="QLabel" name="infolabel">
+      <property name="font">
+       <font>
+        <family>Fira Code</family>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Open an Image first......</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QPushButton" name="closeImgButton">
@@ -1018,6 +1259,7 @@
         </property>
         <property name="font">
          <font>
+          <family>Fira Code</family>
           <pointsize>12</pointsize>
          </font>
         </property>
@@ -1042,6 +1284,7 @@
         </property>
         <property name="font">
          <font>
+          <family>Fira Code</family>
           <pointsize>12</pointsize>
          </font>
         </property>
@@ -1054,6 +1297,14 @@
     </item>
     <item>
      <widget class="QPushButton" name="resetButton">
+      <property name="font">
+       <font>
+        <family>Fira Code</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="text">
        <string>reset input</string>
       </property>
@@ -1066,8 +1317,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>411</width>
-     <height>24</height>
+     <width>377</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>

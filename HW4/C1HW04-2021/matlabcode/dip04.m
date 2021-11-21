@@ -86,8 +86,8 @@ AB =  A.*b;
 %% motion blurred
 
 book = imread('../Fig0526(a)(original_DIP).tif');
-b = im2double(book);
-B = fft2(b);
+bo = im2double(book);
+B = fft2(bo);
 Bc = fftshift(B);
 a = 0.1;
 b = 0.1;
@@ -95,7 +95,7 @@ T=1;
 [M, N] = size(B);
 
 % generating H
-% puavb不能全照課本的公式
+% puavb is different from book
 H = zeros(M, N);
 center_u = M/2+1;
 center_v = N/2+1;
@@ -115,23 +115,73 @@ for u = 1:M
     end
 end
 
-H = fftshift(H);
-BH = B.*H;
+% H = fftshift(H);
+% BH = B.*H;
+% bh = ifft2(BH);
+BH = Bc.*H;
 bh = ifft2(BH);
 
 figure, imshow(book,[])
-figure, imshow(bh,[])
+figure, imshow(abs(bh),[])
 
-% use inverse filter
+%% use inverse filter
 
-a = fft2(bh);
-adh = a./H;
-out = ifft2(adh);
-figure, imshow(out, [])
+% figure 5.25 b Modeling turbulence
+book = imread('../Fig0526(a)(original_DIP).tif');
+bo = im2double(book);
+B = fft2(bo);
+Bc = fftshift(B);
+tbf = turbufilter(size(Bc),0.0025);
+tbf = fftshift(tbf);
+BcH = Bc.*tbf;
+btb = ifft2(BcH);
+figure, imshow(book,[])
+figure, imshow(abs(btb),[])
 
 
+bwf=butterfilter(size(bo),10,20);
+bwfc=fftshift(bwf);
+AH = fft2(btb);
+% Ac = AH./tbf;
+Ac = AH./(tbf.*bwfc);
+% Ac = fftshift(Ac); %unnecessary
+a = ifft2(Ac);
+
+figure, imshow(a,[])
 
 
+%% trying deconvwnr learning from DIPUM3rd
+% but deconvwnr using PSF(point-spread function),AKA h
+% and the degradation function we usually create was in frequency domain
+% which is sometimes called Optical transfer function (OTF), AKA H(u,v)
+
+arest = deconvwnr(a, ifft2(tbf),0);
+figure, imshow(arest,[]);
+
+%% inverse fourier degradation function and convolution in spatial domain
+% but the result didn't match my except
+% and the conv2 will consume a lot of time
+
+
+figure, imshow(bo,[])
+
+h = ifft2(fftshift(tbf));
+psf = otf2psf(tbf);
+blurred = conv2(bo, psf);
+figure, imshow(blurred,[])
+
+%% add noise
+
+book = imread('../Fig0526(a)(original_DIP).tif');
+bo = im2double(book);
+bon = imnoise(bo, 'gaussian',0,400/255/255);
+figure, imshow(bon)
+%%
+
+sig = 20;
+m = 0;
+z = 0:255;
+Pz = 1/sqrt(2*pi)/sig*exp(-(z-m).^2./2./sig./sig);
 
 
 

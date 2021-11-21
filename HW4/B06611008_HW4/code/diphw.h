@@ -60,6 +60,8 @@ private slots:
 
     void on_invFilButton_clicked();
 
+    void on_wieFilButton_clicked();
+
 private:
     Ui::diphw *ui;
     cv::Mat myImg;

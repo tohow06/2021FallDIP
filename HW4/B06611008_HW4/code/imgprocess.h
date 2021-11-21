@@ -42,6 +42,8 @@ class ImgProcess{
         void homoFilter2DFreq(const cv::Mat& inputImg, cv::Mat& outputImg, const cv::Mat& H);
         void homoFilter(cv::Mat& inputOutput_H, double D0, double rH, double rL, double c);
         void motionFilter(cv::Mat& inputOutput_H, double a, double b, double T);
+        cv::Mat invComplex(const cv::Mat& m);
+        void WienerFilter2DFreq(const cv::Mat& inputImg, cv::Mat& outputImg, const cv::Mat& H, double K);
 
         cv::Mat showCenFS(cv::Mat);
         cv::Mat showPAS(cv::Mat);
