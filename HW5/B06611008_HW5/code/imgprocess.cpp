@@ -4,6 +4,9 @@
 
 using namespace cv;
 using namespace std;
+
+void HSVtoRGB( float *r, float *g, float *b, float h, float s, float v );
+
 //calculate histogram in integer from 0 to 255
 Mat ImgProcess::calCalHist(Mat srcM){
     Mat m;
@@ -857,6 +860,189 @@ Mat ImgProcess::showPAS(Mat src)
     dst = imRescale(dst,255);
     dst.convertTo(dst,CV_8U);
     return dst;
+}
+
+Mat ImgProcess::imCMY2RGB(Mat src){
+
+    int srcRows = src.rows;
+    int srcCols = src.cols;
+
+    Mat dst;
+    dst = src.clone();
+    for(int i=0;i<srcRows;i++){
+        for(int j=0;j<srcCols;j++){
+             static float c,m,y;
+
+            c = src.at<Vec3b>(i,j)[0];
+            m = src.at<Vec3b>(i,j)[1];
+            y = src.at<Vec3b>(i,j)[2];
+
+            dst.at<Vec3b>(i,j)[0] = 255-c;
+            dst.at<Vec3b>(i,j)[1] = 255-m;
+            dst.at<Vec3b>(i,j)[2] = 255-y;
+
+        }
+    }
+
+    return dst;
+}
+
+Mat ImgProcess::imHSV2RGB(Mat src){
+
+    int srcRows = src.rows;
+    int srcCols = src.cols;
+
+    Mat dst;
+    dst = Mat::zeros(srcRows,srcCols,CV_32FC3);
+
+    for(int i=0;i<srcRows;i++){
+        for(int j=0;j<srcCols;j++){
+            float *r = new float;
+            float *g = new float;
+            float *b = new float;
+
+            float h,s,v;
+            h = src.at<Vec3b>(i,j)[0];
+            s = src.at<Vec3b>(i,j)[1];
+            v = src.at<Vec3b>(i,j)[2];
+
+            HSVtoRGB(r,g,b,h,s,v);
+
+            dst.at<Vec3f>(i,j)[0] = *r;
+            dst.at<Vec3f>(i,j)[1] = *g;
+            dst.at<Vec3f>(i,j)[2] = *b;
+
+        }
+    }
+
+    return dst;
+}
+
+Mat ImgProcess::imRGB2XYZ(Mat src){
+
+    int srcRows = src.rows;
+    int srcCols = src.cols;
+
+    Mat planes[3] = { Mat::zeros(src.size(), CV_32F), Mat::zeros(src.size(), CV_32F), Mat::zeros(src.size(), CV_32F) };
+    split(src, planes);
+
+    planes[0] = this->imRescale(planes[0],1);
+    planes[1] = this->imRescale(planes[1],1);
+    planes[2] = this->imRescale(planes[2],1);
+
+    Mat dst;
+    dst = Mat::zeros(srcRows,srcCols,CV_32FC3);
+
+    Mat matrix = (Mat_<float>(3,3) << 0.412453,0.357580,0.180423,0.212671,0.715160,0.072169,0.019334,0.119193,0.950227);
+
+    for(int i=0;i<srcRows;i++){
+        for(int j=0;j<srcCols;j++){
+
+            float r,g,b,X,Y,Z;
+            r = planes[0].at<float>(i,j);
+            g = planes[1].at<float>(i,j);
+            b = planes[2].at<float>(i,j);
+
+
+
+            X = matrix.at<float>(0,0)*r+matrix.at<float>(0,1)*g+matrix.at<float>(0,2)*b;
+            Y = matrix.at<float>(1,0)*r+matrix.at<float>(1,1)*g+matrix.at<float>(1,2)*b;
+            Z = matrix.at<float>(2,0)*r+matrix.at<float>(2,1)*g+matrix.at<float>(2,2)*b;
+
+            dst.at<Vec3f>(i,j)[0] = X;
+            dst.at<Vec3f>(i,j)[1] = Y;
+            dst.at<Vec3f>(i,j)[2] = Z;
+
+        }
+    }
+    return dst;
+}
+
+Mat ImgProcess::imXYZ2LAB(Mat src){
+
+    int srcRows = src.rows;
+    int srcCols = src.cols;
+
+    Mat planes[3] = { Mat::zeros(src.size(), CV_32F), Mat::zeros(src.size(), CV_32F), Mat::zeros(src.size(), CV_32F) };
+    split(src, planes);
+
+    Mat dst;
+    dst = Mat::zeros(srcRows,srcCols,CV_32FC3);
+
+    Mat matrix = (Mat_<float>(3,3) << 0.412453,0.357580,0.180423,0.212671,0.715160,0.072169,0.019334,0.119193,0.950227);
+
+    for(int i=0;i<srcRows;i++){
+        for(int j=0;j<srcCols;j++){
+
+            float r,g,b,X,Y,Z;
+            r = planes[0].at<float>(i,j);
+            g = planes[1].at<float>(i,j);
+            b = planes[2].at<float>(i,j);
+
+
+
+            X = matrix.at<float>(0,0)*r+matrix.at<float>(0,1)*g+matrix.at<float>(0,2)*b;
+            Y = matrix.at<float>(1,0)*r+matrix.at<float>(1,1)*g+matrix.at<float>(1,2)*b;
+            Z = matrix.at<float>(2,0)*r+matrix.at<float>(2,1)*g+matrix.at<float>(2,2)*b;
+
+            dst.at<Vec3f>(i,j)[0] = X;
+            dst.at<Vec3f>(i,j)[1] = Y;
+            dst.at<Vec3f>(i,j)[2] = Z;
+
+        }
+    }
+    return dst;
+}
+
+
+void HSVtoRGB( float *r, float *g, float *b, float h, float s, float v )
+{
+    int i;
+    float f, p, q, t;
+    if( s == 0 ) {
+        // achromatic (grey)
+        *r = *g = *b = v;
+        return;
+    }
+    h /= 60;			// sector 0 to 5
+    i = floor( h );
+    f = h - i;			// factorial part of h
+    p = v * ( 1 - s );
+    q = v * ( 1 - s * f );
+    t = v * ( 1 - s * ( 1 - f ) );
+
+    switch( i ) {
+        case 0:
+            *r = v;
+            *g = t;
+            *b = p;
+            break;
+        case 1:
+            *r = q;
+            *g = v;
+            *b = p;
+            break;
+        case 2:
+            *r = p;
+            *g = v;
+            *b = t;
+            break;
+        case 3:
+            *r = p;
+            *g = q;
+            *b = v;
+            break;
+        case 4:
+            *r = t;
+            *g = p;
+            *b = v;
+            break;
+        default:		// case 5:
+            *r = v;
+            *g = p;
+            *b = q;
+            break;
+    }
 }
 
 

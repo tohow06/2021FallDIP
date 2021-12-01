@@ -48,6 +48,11 @@ class ImgProcess{
         cv::Mat showCenFS(cv::Mat);
         cv::Mat showPAS(cv::Mat);
 
+        cv::Mat imHSV2RGB(cv::Mat src);
+        cv::Mat imCMY2RGB(cv::Mat src);
+        cv::Mat imRGB2XYZ(cv::Mat src);
+        cv::Mat imXYZ2LAB(cv::Mat src);
+
 };
 
 

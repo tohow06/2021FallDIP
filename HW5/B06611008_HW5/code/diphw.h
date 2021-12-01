@@ -27,42 +27,19 @@ private slots:
 
     void on_exitButton_clicked();
 
-    void on_matrixBox_currentIndexChanged(int index);
-
-    void on_sizeBox_currentIndexChanged(int index);
-
-    void on_convButton_clicked();
-
     void on_closeImgButton_clicked();
 
-    void on_zcButton_clicked();
+    void on_cmyButton_clicked();
 
-    void on_thresSlider_valueChanged(int value);
+    void on_hsiButton_clicked();
 
-    void on_showFSButton_clicked();
+    void on_xyzButton_clicked();
 
-    void on_showPASButton_clicked();
+    void on_labButton_clicked();
 
-    void on_ifftButton_clicked();
+    void on_yuvButton_clicked();
 
-    void on_resetButton_clicked();
-
-    void on_idealButton_clicked();
-
-    void on_butterButton_clicked();
-
-    void on_GaussButton_clicked();
-
-    void on_homoButton_clicked();
-
-
-    void on_motionButton_clicked();
-
-    void on_invFilButton_clicked();
-
-    void on_wieFilButton_clicked();
-
-    void on_pushButton_clicked();
+    void on_pseudoButton_clicked();
 
 private:
     Ui::diphw *ui;

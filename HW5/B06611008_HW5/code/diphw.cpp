@@ -21,19 +21,111 @@ void diphw::on_openButton_clicked()
 {
 
     QString fileName = QFileDialog::getOpenFileName(this,
-//        tr("Open Image"), ".",
-        tr("Open Image"),"/Users/tohow/Documents/QtQt/2021FallDIP/HW4/C1HW04-2021/.",
-        tr("Image Files (*.png *.jpg *.jpeg *.bmp *.tif"));
+                                                    tr("Open Image"), ".",
+                                                    //        tr("Open Image"),"/Users/tohow/Documents/QtQt/2021FallDIP/HW4/C1HW04-2021/.",
+                                                    tr("Image Files (*.png *.jpg *.jpeg *.bmp *.tif"));
     if(fileName != NULL)
     {
-//        std::cout<<fileName.section("/",-1,-1).toStdString()<<std::endl;
-//        std::cout<<fileName.toStdString()<<std::endl;
+        //        std::cout<<fileName.section("/",-1,-1).toStdString()<<std::endl;
+        //        std::cout<<fileName.toStdString()<<std::endl;
         std::string fN=fileName.toStdString().data();
         this->myImg = cv::imread(fN);
         cv::namedWindow("origin",cv::WINDOW_AUTOSIZE);
         cv::imshow("origin",this->myImg);
     }
 }
+
+void diphw::on_closeImgButton_clicked()
+{
+    cv::destroyAllWindows();
+}
+
+void diphw::on_exitButton_clicked()
+{
+    close();
+}
+
+void diphw::on_cmyButton_clicked()
+{
+    cv::Mat rgb;
+    rgb = this->imgp.imCMY2RGB(this->myImg).clone();
+    imshow("converted",rgb);
+}
+
+void diphw::on_hsiButton_clicked()
+{
+    cv::Mat rgb;
+    rgb = this->imgp.imHSV2RGB(this->myImg).clone();
+    imshow("converted",rgb);
+}
+
+void diphw::on_xyzButton_clicked()
+{
+    //    cv::Mat xyz;
+    //    xyz = this->imgp.imRGB2XYZ(this->myImg).clone();
+
+    //    cv::Mat planes[3] = { cv::Mat::zeros(xyz.size(), CV_32F), cv::Mat::zeros(xyz.size(), CV_32F), cv::Mat::zeros(xyz.size(), CV_32F) };
+    //    split(xyz, planes);
+
+    //    planes[0] = this->imgp.imRescale(planes[0],255);
+    //    planes[1] = this->imgp.imRescale(planes[1],255);
+    //    planes[2] = this->imgp.imRescale(planes[2],255);
+
+    //    merge(planes,3,xyz);
+    //    imshow("converted",xyz);
+    cv::Mat xyz;
+
+    cv::cvtColor(this->myImg,xyz,cv::COLOR_BGR2XYZ);
+    imshow("converted",xyz);
+}
+
+void diphw::on_labButton_clicked()
+{
+    cv::Mat lab;
+
+    cv::cvtColor(this->myImg,lab,cv::COLOR_BGR2Lab);
+    imshow("converted",lab);
+}
+
+void diphw::on_yuvButton_clicked()
+{
+    cv::Mat yuv;
+    cv::cvtColor(this->myImg,yuv,cv::COLOR_BGR2YUV);
+    imshow("converted",yuv);
+
+}
+
+
+void diphw::on_pseudoButton_clicked()
+{
+    cv::Mat img_in,pseudo;
+    cv::cvtColor(this->myImg,img_in,cv::COLOR_BGR2GRAY);
+    imshow("gray",img_in);
+
+    int id = ui->mapBox->currentIndex();
+
+    switch(id){
+    case 1:
+        cv::applyColorMap(img_in,pseudo,cv::COLORMAP_CIVIDIS);
+        break;
+    case 2:
+        cv::applyColorMap(img_in,pseudo,cv::COLORMAP_COOL);
+        break;
+    case 3:
+        cv::applyColorMap(img_in,pseudo,cv::COLORMAP_JET);
+        break;
+    case 4:
+        cv::applyColorMap(img_in,pseudo,cv::COLORMAP_WINTER);
+        break;
+    default:
+        break;
+    }
+
+
+    imshow("pseudo", pseudo);
+}
+
+/*
 
 //upDate select kernel and show in label Matrix
 void diphw::upDateMatrix()
@@ -61,6 +153,7 @@ void diphw::upDateMatrix()
             labels.at(i)->setText("x");
     }
 }
+
 
 
 //do the convolution and show the result with imshow
@@ -121,15 +214,6 @@ void diphw::on_sizeBox_currentIndexChanged(int index)
     upDateMatrix();
 }
 
-void diphw::on_closeImgButton_clicked()
-{
-    cv::destroyAllWindows();
-}
-
-void diphw::on_exitButton_clicked()
-{
-    close();
-}
 
 void diphw::on_zcButton_clicked()
 {
@@ -401,6 +485,24 @@ void diphw::on_pushButton_clicked()
     cout<<planesre[1]<<endl;
 
 }
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
