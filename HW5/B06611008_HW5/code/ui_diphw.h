@@ -50,6 +50,7 @@ public:
     QLabel *label_2;
     QLabel *label_3;
     QLabel *label_4;
+    QPushButton *pushButton;
     QHBoxLayout *horizontalLayout_2;
     QPushButton *closeImgButton;
     QPushButton *exitButton;
@@ -61,7 +62,7 @@ public:
         if (diphw->objectName().isEmpty())
             diphw->setObjectName(QString::fromUtf8("diphw"));
         diphw->setEnabled(true);
-        diphw->resize(443, 437);
+        diphw->resize(443, 467);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -232,6 +233,11 @@ public:
 
         verticalLayout_3->addLayout(horizontalLayout_3);
 
+        pushButton = new QPushButton(tab_3);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+
+        verticalLayout_3->addWidget(pushButton);
+
         tabWidget->addTab(tab_3, QString());
 
         verticalLayout_6->addWidget(tabWidget);
@@ -298,6 +304,7 @@ public:
         label_2->setText(QApplication::translate("diphw", "cool", nullptr));
         label_3->setText(QApplication::translate("diphw", "jet", nullptr));
         label_4->setText(QApplication::translate("diphw", "winter", nullptr));
+        pushButton->setText(QApplication::translate("diphw", "PushButton", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("diphw", "HW5", nullptr));
         closeImgButton->setText(QApplication::translate("diphw", "Clear", nullptr));
         exitButton->setText(QApplication::translate("diphw", "Close", nullptr));

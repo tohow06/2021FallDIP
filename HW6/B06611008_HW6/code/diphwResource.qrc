@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/new">
+        <file>map/colorscale_cividis.jpg</file>
+        <file>map/colorscale_cool.jpg</file>
+        <file>map/colorscale_jet.jpg</file>
+        <file>map/colorscale_winter.jpg</file>
+    </qresource>
+</RCC>
