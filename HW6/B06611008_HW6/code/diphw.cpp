@@ -106,11 +106,15 @@ void diphw::on_wavyButton_clicked()
         for(int j=0;j<co;j++){
             int offset_x = int(20.0 * sin(2 * 3.14 * i / this->freq));
             int offset_y = int(20.0 * cos(2 * 3.14 * j / this->freq));
-            warp_dst.at<uchar>(i,j) = src.at<uchar>( (i+offset_y) % ro, (j+offset_x)%co);
+            int newy = abs((i+offset_y) % ro);
+            int newx = abs((j+offset_x) % co);
+
+            warp_dst.at<uchar>(i,j) = src.at<uchar>(newy, newx);
         }
     }
 
     imshow( "Warp", warp_dst );
+    imwrite("C:/Users/tohow/Pictures/greenshot/dogwavy.jpg",warp_dst);
 }
 
 void diphw::on_freqSlider_valueChanged(int value)
@@ -135,20 +139,23 @@ void diphw::on_circularButton_clicked()
 
     Mat warp_dst = Mat::zeros( ro, co, src.type() );
 
-    for(int i=0;i<ro;i++){
-            int sin = abs(ro/2-i);
-            int tan = sqrt(r*2*2-sin*2*2);
-            Rect lineROI = Rect(0,0,co,1);
-            Mat oneline = src(lineROI);
-            Mat pressed;
-            cv::resize(oneline,pressed,Size(tan,1));
+    for(int i=0;i<co;i++){
+        int sin = abs(ro/2-i);
+        int tan = sqrt(r*r-sin*sin);
+        if(tan == 0)
+            continue;
+        Rect lineROI = Rect(0,i,co,1);
+        Mat oneline = src(lineROI).clone();
+        Mat pressed;
+        cv::resize(oneline,pressed,Size(tan*2,1));
 
-            int Xpos = co/2-tan/2;
-            Mat roi = warp_dst(Rect(100,i,tan,1));
-            pressed.copyTo(roi);
+        int Xpos = co/2-tan;
+        Mat roi = warp_dst(Rect(Xpos,i,tan*2,1));
+        pressed.copyTo(roi);
 
     }
 
     imshow( "Warp", warp_dst );
+    imwrite("C:/Users/tohow/Pictures/greenshot/dogcircle.jpg",warp_dst);
 }
 
