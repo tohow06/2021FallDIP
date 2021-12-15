@@ -3,9 +3,6 @@
 
 #include <map>
 #include <opencv2/opencv.hpp>
-//#include <opencv2/imgcodecs.hpp>
-//#include <opencv2/imgproc.hpp>
-//#include <opencv2/highgui.hpp>
 
 class ImgProcess{
     public:
@@ -52,6 +49,8 @@ class ImgProcess{
         cv::Mat imCMY2RGB(cv::Mat src);
         cv::Mat imRGB2XYZ(cv::Mat src);
         cv::Mat imXYZ2LAB(cv::Mat src);
+
+        //-----------
 
 };
 

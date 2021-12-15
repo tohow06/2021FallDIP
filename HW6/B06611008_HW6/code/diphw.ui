@@ -89,7 +89,7 @@
       <property name="font">
        <font>
         <family>Fira Code</family>
-        <pointsize>9</pointsize>
+        <pointsize>12</pointsize>
        </font>
       </property>
       <property name="text">
@@ -109,14 +109,88 @@
        <widget class="QPushButton" name="trapButton">
         <property name="geometry">
          <rect>
-          <x>220</x>
-          <y>60</y>
-          <width>191</width>
-          <height>31</height>
+          <x>240</x>
+          <y>20</y>
+          <width>171</width>
+          <height>61</height>
          </rect>
         </property>
         <property name="text">
          <string>trapezoidal</string>
+        </property>
+       </widget>
+       <widget class="QSlider" name="highSlider">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>70</y>
+          <width>160</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="maximum">
+         <number>50</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+       <widget class="QSlider" name="widthSlider">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>30</y>
+          <width>160</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="maximum">
+         <number>50</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="wavyButton">
+        <property name="geometry">
+         <rect>
+          <x>240</x>
+          <y>110</y>
+          <width>131</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>wavy</string>
+        </property>
+       </widget>
+       <widget class="QSlider" name="freqSlider">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>120</y>
+          <width>160</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="maximum">
+         <number>150</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="circularButton">
+        <property name="geometry">
+         <rect>
+          <x>240</x>
+          <y>160</y>
+          <width>113</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>cicular</string>
         </property>
        </widget>
       </widget>
@@ -194,7 +268,7 @@
      <x>0</x>
      <y>0</y>
      <width>482</width>
-     <height>21</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>

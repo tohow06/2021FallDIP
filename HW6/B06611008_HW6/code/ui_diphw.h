@@ -16,6 +16,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QVBoxLayout>
@@ -34,6 +35,11 @@ public:
     QTabWidget *tabWidget;
     QWidget *tab;
     QPushButton *trapButton;
+    QSlider *highSlider;
+    QSlider *widthSlider;
+    QPushButton *wavyButton;
+    QSlider *freqSlider;
+    QPushButton *circularButton;
     QWidget *tab_2;
     QWidget *tab_3;
     QHBoxLayout *horizontalLayout_2;
@@ -90,10 +96,7 @@ public:
 
         infolabel = new QLabel(centralwidget);
         infolabel->setObjectName(QString::fromUtf8("infolabel"));
-        QFont font2;
-        font2.setFamily(QString::fromUtf8("Fira Code"));
-        font2.setPointSize(9);
-        infolabel->setFont(font2);
+        infolabel->setFont(font1);
 
         verticalLayout_6->addWidget(infolabel);
 
@@ -103,7 +106,28 @@ public:
         tab->setObjectName(QString::fromUtf8("tab"));
         trapButton = new QPushButton(tab);
         trapButton->setObjectName(QString::fromUtf8("trapButton"));
-        trapButton->setGeometry(QRect(220, 60, 191, 31));
+        trapButton->setGeometry(QRect(240, 20, 171, 61));
+        highSlider = new QSlider(tab);
+        highSlider->setObjectName(QString::fromUtf8("highSlider"));
+        highSlider->setGeometry(QRect(50, 70, 160, 22));
+        highSlider->setMaximum(50);
+        highSlider->setOrientation(Qt::Horizontal);
+        widthSlider = new QSlider(tab);
+        widthSlider->setObjectName(QString::fromUtf8("widthSlider"));
+        widthSlider->setGeometry(QRect(50, 30, 160, 22));
+        widthSlider->setMaximum(50);
+        widthSlider->setOrientation(Qt::Horizontal);
+        wavyButton = new QPushButton(tab);
+        wavyButton->setObjectName(QString::fromUtf8("wavyButton"));
+        wavyButton->setGeometry(QRect(240, 110, 131, 41));
+        freqSlider = new QSlider(tab);
+        freqSlider->setObjectName(QString::fromUtf8("freqSlider"));
+        freqSlider->setGeometry(QRect(50, 120, 160, 22));
+        freqSlider->setMaximum(150);
+        freqSlider->setOrientation(Qt::Horizontal);
+        circularButton = new QPushButton(tab);
+        circularButton->setObjectName(QString::fromUtf8("circularButton"));
+        circularButton->setGeometry(QRect(240, 160, 113, 32));
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
@@ -140,7 +164,7 @@ public:
         diphw->setCentralWidget(centralwidget);
         menubar = new QMenuBar(diphw);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 482, 21));
+        menubar->setGeometry(QRect(0, 0, 482, 24));
         diphw->setMenuBar(menubar);
         statusbar = new QStatusBar(diphw);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -161,6 +185,8 @@ public:
         openButton->setText(QApplication::translate("diphw", "Open Image", nullptr));
         infolabel->setText(QApplication::translate("diphw", "Open an Image first......", nullptr));
         trapButton->setText(QApplication::translate("diphw", "trapezoidal", nullptr));
+        wavyButton->setText(QApplication::translate("diphw", "wavy", nullptr));
+        circularButton->setText(QApplication::translate("diphw", "cicular", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("diphw", "Part 1", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("diphw", "Part 2", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("diphw", "Part 3", nullptr));

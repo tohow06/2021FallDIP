@@ -50,48 +50,105 @@ void diphw::on_exitButton_clicked()
 
 void diphw::on_trapButton_clicked()
 {
-    /*
+
     Mat src;
     src = this->imgp.grayScaleA(this->myImg).clone();
     src.convertTo(src,CV_8U);
 
-    Point2f srcTri[3];
-    srcTri[0] = Point2f( 0.f, 0.f );
-    srcTri[1] = Point2f( src.cols - 1.f, 0.f );
-    srcTri[2] = Point2f( src.cols*0.5f, src.rows - 1.f);
-    Point2f dstTri[3];
-    dstTri[0] = Point2f( src.cols*0.2f, 0.f );
-    dstTri[1] = Point2f( src.cols*0.8f, 0.f );
-    dstTri[2] = Point2f( src.cols*0.5f, src.rows - 1.f );
-
-    Mat warp_mat = getAffineTransform( srcTri, dstTri );
+    Mat Hom;
     Mat warp_dst = Mat::zeros( src.rows, src.cols, src.type() );
-    warpAffine( src, warp_dst, warp_mat, warp_dst.size() );
 
-    imshow( "Source image", src );
+    vector<Point2f> srcTri;
+    srcTri.push_back(Point2f( 0, 0 ));
+    srcTri.push_back(Point2f( src.cols , 0 ));
+    srcTri.push_back(Point2f( src.cols, src.rows));
+    srcTri.push_back(Point2f( 0, src.rows));
+    vector<Point2f> dstTri;
+    dstTri.push_back(Point2f( warp_dst.cols*this->tw, warp_dst.rows*this->th));
+    dstTri.push_back(Point2f( warp_dst.cols*(1-this->tw), warp_dst.rows*this->th));
+    dstTri.push_back(Point2f( warp_dst.cols, warp_dst.rows));
+    dstTri.push_back(Point2f( 0, warp_dst.rows));
+
+    Hom = findHomography(srcTri,dstTri);
+    warpPerspective(src,warp_dst,Hom,warp_dst.size());
+
     imshow( "Warp", warp_dst );
-    */
+
+}
+
+
+void diphw::on_highSlider_valueChanged(int value)
+{
+
+    this->th = value/100.0;
+    on_trapButton_clicked();
+}
+
+
+void diphw::on_widthSlider_valueChanged(int value)
+{
+    this->tw = value/100.0;
+    on_trapButton_clicked();
+}
+
+
+void diphw::on_wavyButton_clicked()
+{
     Mat src;
     src = this->imgp.grayScaleA(this->myImg).clone();
     src.convertTo(src,CV_8U);
 
-    Point2f srcTri[4];
-    srcTri[0] = Point2f( 0.f, 0.f );
-    srcTri[1] = Point2f( src.cols - 1.f, 0.f );
-    srcTri[2] = Point2f( src.cols*0.5f, src.rows - 1.f);
-    srcTri[3] = Point2f( src.cols*0.5f, src.rows - 1.f);
-    Point2f dstTri[4];
-    dstTri[0] = Point2f( src.cols*0.2f, 0.f );
-    dstTri[1] = Point2f( src.cols*0.8f, 0.f );
-    dstTri[2] = Point2f( src.cols*0.5f, src.rows - 1.f );
-    srcTri[3] = Point2f( src.cols*0.5f, src.rows - 1.f);
+    int ro = src.rows;
+    int co = src.cols;
 
-    Mat warp_mat;
-    cv::findHomography(srcTri,dstTri);
-    Mat warp_dst = Mat::zeros( src.rows, src.cols, src.type() );
-    warpAffine( src, warp_dst, warp_mat, warp_dst.size() );
+    Mat warp_dst = Mat::zeros( ro, co, src.type() );
+    for(int i=0;i<ro;i++){
+        for(int j=0;j<co;j++){
+            int offset_x = int(20.0 * sin(2 * 3.14 * i / this->freq));
+            int offset_y = int(20.0 * cos(2 * 3.14 * j / this->freq));
+            warp_dst.at<uchar>(i,j) = src.at<uchar>( (i+offset_y) % ro, (j+offset_x)%co);
+        }
+    }
 
-    imshow( "Source image", src );
+    imshow( "Warp", warp_dst );
+}
+
+void diphw::on_freqSlider_valueChanged(int value)
+{
+    this->freq = value;
+    on_wavyButton_clicked();
+}
+
+
+
+
+void diphw::on_circularButton_clicked()
+{
+    Mat src;
+    src = this->imgp.grayScaleA(this->myImg).clone();
+    src.convertTo(src,CV_8U);
+
+    int ro = src.rows;
+    int co = src.cols;
+
+    int r = co/2;
+
+    Mat warp_dst = Mat::zeros( ro, co, src.type() );
+
+    for(int i=0;i<ro;i++){
+            int sin = abs(ro/2-i);
+            int tan = sqrt(r*2*2-sin*2*2);
+            Rect lineROI = Rect(0,0,co,1);
+            Mat oneline = src(lineROI);
+            Mat pressed;
+            cv::resize(oneline,pressed,Size(tan,1));
+
+            int Xpos = co/2-tan/2;
+            Mat roi = warp_dst(Rect(100,i,tan,1));
+            pressed.copyTo(roi);
+
+    }
+
     imshow( "Warp", warp_dst );
 }
 

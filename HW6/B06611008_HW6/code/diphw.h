@@ -33,12 +33,24 @@ private slots:
 
     void on_trapButton_clicked();
 
+    void on_highSlider_valueChanged(int value);
+
+    void on_widthSlider_valueChanged(int value);
+
+    void on_wavyButton_clicked();
+
+    void on_freqSlider_valueChanged(int value);
+
+
+    void on_circularButton_clicked();
+
 private:
     Ui::diphw *ui;
     cv::Mat myImg;
     cv::Mat myImg2;
     cv::Mat myImg3;
     cv::Mat mykernel;
+    double tw,th,freq;
     ImgProcess imgp;
     float zcThres;
     void upDateMatrix();
