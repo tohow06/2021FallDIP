@@ -41,16 +41,34 @@ private slots:
 
     void on_freqSlider_valueChanged(int value);
 
-
     void on_circularButton_clicked();
+
+    void on_houghButton_clicked();
+
+    void on_threshold_lineEdit_textChanged(const QString &arg1);
+
+    void on_minLineLength_lineEdit_textChanged(const QString &arg1);
+
+    void on_maxLineGap_lineEdit_textChanged(const QString &arg1);
+
+    void on_dwtButton_clicked();
+
+    void on_img1Button_clicked();
+    void on_img2Button_clicked();
+    void on_img3Button_clicked();
+
+    void on_fusionButton_clicked();
 
 private:
     Ui::diphw *ui;
     cv::Mat myImg;
+    cv::Mat myImg1;
     cv::Mat myImg2;
     cv::Mat myImg3;
+    cv::Mat imgDWT[3];
+    int Fu_count;
     cv::Mat mykernel;
-    double tw,th,freq;
+    double tw,th,freq,hThres,hminLL, hmaxLG; // parameters
     ImgProcess imgp;
     float zcThres;
     void upDateMatrix();

@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_diphw_t {
-    QByteArrayData data[12];
-    char stringdata0[235];
+    QByteArrayData data[21];
+    char stringdata0[457];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -42,7 +42,16 @@ QT_MOC_LITERAL(7, 126, 5), // "value"
 QT_MOC_LITERAL(8, 132, 27), // "on_widthSlider_valueChanged"
 QT_MOC_LITERAL(9, 160, 21), // "on_wavyButton_clicked"
 QT_MOC_LITERAL(10, 182, 26), // "on_freqSlider_valueChanged"
-QT_MOC_LITERAL(11, 209, 25) // "on_circularButton_clicked"
+QT_MOC_LITERAL(11, 209, 25), // "on_circularButton_clicked"
+QT_MOC_LITERAL(12, 235, 22), // "on_houghButton_clicked"
+QT_MOC_LITERAL(13, 258, 33), // "on_threshold_lineEdit_textCha..."
+QT_MOC_LITERAL(14, 292, 4), // "arg1"
+QT_MOC_LITERAL(15, 297, 37), // "on_minLineLength_lineEdit_tex..."
+QT_MOC_LITERAL(16, 335, 34), // "on_maxLineGap_lineEdit_textCh..."
+QT_MOC_LITERAL(17, 370, 20), // "on_dwtButton_clicked"
+QT_MOC_LITERAL(18, 391, 21), // "on_img1Button_clicked"
+QT_MOC_LITERAL(19, 413, 21), // "on_img2Button_clicked"
+QT_MOC_LITERAL(20, 435, 21) // "on_img3Button_clicked"
 
     },
     "diphw\0on_openButton_clicked\0\0"
@@ -50,7 +59,13 @@ QT_MOC_LITERAL(11, 209, 25) // "on_circularButton_clicked"
     "on_trapButton_clicked\0on_highSlider_valueChanged\0"
     "value\0on_widthSlider_valueChanged\0"
     "on_wavyButton_clicked\0on_freqSlider_valueChanged\0"
-    "on_circularButton_clicked"
+    "on_circularButton_clicked\0"
+    "on_houghButton_clicked\0"
+    "on_threshold_lineEdit_textChanged\0"
+    "arg1\0on_minLineLength_lineEdit_textChanged\0"
+    "on_maxLineGap_lineEdit_textChanged\0"
+    "on_dwtButton_clicked\0on_img1Button_clicked\0"
+    "on_img2Button_clicked\0on_img3Button_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -60,7 +75,7 @@ static const uint qt_meta_data_diphw[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      17,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -68,15 +83,23 @@ static const uint qt_meta_data_diphw[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   59,    2, 0x08 /* Private */,
-       3,    0,   60,    2, 0x08 /* Private */,
-       4,    0,   61,    2, 0x08 /* Private */,
-       5,    0,   62,    2, 0x08 /* Private */,
-       6,    1,   63,    2, 0x08 /* Private */,
-       8,    1,   66,    2, 0x08 /* Private */,
-       9,    0,   69,    2, 0x08 /* Private */,
-      10,    1,   70,    2, 0x08 /* Private */,
-      11,    0,   73,    2, 0x08 /* Private */,
+       1,    0,   99,    2, 0x08 /* Private */,
+       3,    0,  100,    2, 0x08 /* Private */,
+       4,    0,  101,    2, 0x08 /* Private */,
+       5,    0,  102,    2, 0x08 /* Private */,
+       6,    1,  103,    2, 0x08 /* Private */,
+       8,    1,  106,    2, 0x08 /* Private */,
+       9,    0,  109,    2, 0x08 /* Private */,
+      10,    1,  110,    2, 0x08 /* Private */,
+      11,    0,  113,    2, 0x08 /* Private */,
+      12,    0,  114,    2, 0x08 /* Private */,
+      13,    1,  115,    2, 0x08 /* Private */,
+      15,    1,  118,    2, 0x08 /* Private */,
+      16,    1,  121,    2, 0x08 /* Private */,
+      17,    0,  124,    2, 0x08 /* Private */,
+      18,    0,  125,    2, 0x08 /* Private */,
+      19,    0,  126,    2, 0x08 /* Private */,
+      20,    0,  127,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -87,6 +110,14 @@ static const uint qt_meta_data_diphw[] = {
     QMetaType::Void, QMetaType::Int,    7,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,    7,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,   14,
+    QMetaType::Void, QMetaType::QString,   14,
+    QMetaType::Void, QMetaType::QString,   14,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -107,6 +138,14 @@ void diphw::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
         case 6: _t->on_wavyButton_clicked(); break;
         case 7: _t->on_freqSlider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 8: _t->on_circularButton_clicked(); break;
+        case 9: _t->on_houghButton_clicked(); break;
+        case 10: _t->on_threshold_lineEdit_textChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 11: _t->on_minLineLength_lineEdit_textChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 12: _t->on_maxLineGap_lineEdit_textChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 13: _t->on_dwtButton_clicked(); break;
+        case 14: _t->on_img1Button_clicked(); break;
+        case 15: _t->on_img2Button_clicked(); break;
+        case 16: _t->on_img3Button_clicked(); break;
         default: ;
         }
     }
@@ -141,13 +180,13 @@ int diphw::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 17)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 17;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 17)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 9;
+        _id -= 17;
     }
     return _id;
 }

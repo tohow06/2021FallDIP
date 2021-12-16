@@ -22,7 +22,7 @@ class ImgProcess{
         cv::Mat conv2DD(cv::Mat, cv::Mat);
         cv::Mat ordfilt(cv::Mat, cv::Mat);
         cv::Mat addZeroPad(cv::Mat, int);
-        cv::Mat imRescale(cv::Mat, int);
+        static cv::Mat imRescale(cv::Mat, int);
         cv::Mat zeroCross(cv::Mat, double);
 
         //-----------from opencv document

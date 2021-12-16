@@ -12,13 +12,16 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
+#include <QtWidgets/QTableWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -50,7 +53,18 @@ public:
     QPushButton *wavyButton;
     QPushButton *circularButton;
     QWidget *tab_2;
+    QPushButton *img1Button;
+    QPushButton *img2Button;
+    QPushButton *dwtButton;
+    QPushButton *img3Button;
+    QPushButton *fusionButton;
+    QPushButton *inverseButton;
     QWidget *tab_3;
+    QPushButton *houghButton;
+    QTableWidget *tableWidget;
+    QLineEdit *threshold_lineEdit;
+    QLineEdit *minLineLength_lineEdit;
+    QLineEdit *maxLineGap_lineEdit;
     QHBoxLayout *horizontalLayout_2;
     QPushButton *closeImgButton;
     QPushButton *exitButton;
@@ -62,7 +76,7 @@ public:
         if (diphw->objectName().isEmpty())
             diphw->setObjectName(QString::fromUtf8("diphw"));
         diphw->setEnabled(true);
-        diphw->resize(368, 517);
+        diphw->resize(373, 589);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -227,9 +241,54 @@ public:
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
+        img1Button = new QPushButton(tab_2);
+        img1Button->setObjectName(QString::fromUtf8("img1Button"));
+        img1Button->setGeometry(QRect(50, 20, 113, 32));
+        img2Button = new QPushButton(tab_2);
+        img2Button->setObjectName(QString::fromUtf8("img2Button"));
+        img2Button->setGeometry(QRect(50, 60, 113, 32));
+        dwtButton = new QPushButton(tab_2);
+        dwtButton->setObjectName(QString::fromUtf8("dwtButton"));
+        dwtButton->setGeometry(QRect(50, 140, 113, 32));
+        img3Button = new QPushButton(tab_2);
+        img3Button->setObjectName(QString::fromUtf8("img3Button"));
+        img3Button->setGeometry(QRect(50, 100, 113, 32));
+        fusionButton = new QPushButton(tab_2);
+        fusionButton->setObjectName(QString::fromUtf8("fusionButton"));
+        fusionButton->setGeometry(QRect(50, 180, 113, 32));
+        inverseButton = new QPushButton(tab_2);
+        inverseButton->setObjectName(QString::fromUtf8("inverseButton"));
+        inverseButton->setGeometry(QRect(50, 230, 113, 32));
         tabWidget->addTab(tab_2, QString());
         tab_3 = new QWidget();
         tab_3->setObjectName(QString::fromUtf8("tab_3"));
+        houghButton = new QPushButton(tab_3);
+        houghButton->setObjectName(QString::fromUtf8("houghButton"));
+        houghButton->setGeometry(QRect(70, 10, 181, 51));
+        tableWidget = new QTableWidget(tab_3);
+        if (tableWidget->columnCount() < 2)
+            tableWidget->setColumnCount(2);
+        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem);
+        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(1, __qtablewidgetitem1);
+        if (tableWidget->rowCount() < 2)
+            tableWidget->setRowCount(2);
+        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
+        tableWidget->setVerticalHeaderItem(0, __qtablewidgetitem2);
+        QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
+        tableWidget->setVerticalHeaderItem(1, __qtablewidgetitem3);
+        tableWidget->setObjectName(QString::fromUtf8("tableWidget"));
+        tableWidget->setGeometry(QRect(30, 70, 241, 101));
+        threshold_lineEdit = new QLineEdit(tab_3);
+        threshold_lineEdit->setObjectName(QString::fromUtf8("threshold_lineEdit"));
+        threshold_lineEdit->setGeometry(QRect(70, 200, 113, 21));
+        minLineLength_lineEdit = new QLineEdit(tab_3);
+        minLineLength_lineEdit->setObjectName(QString::fromUtf8("minLineLength_lineEdit"));
+        minLineLength_lineEdit->setGeometry(QRect(70, 240, 113, 21));
+        maxLineGap_lineEdit = new QLineEdit(tab_3);
+        maxLineGap_lineEdit->setObjectName(QString::fromUtf8("maxLineGap_lineEdit"));
+        maxLineGap_lineEdit->setGeometry(QRect(70, 280, 113, 21));
         tabWidget->addTab(tab_3, QString());
 
         verticalLayout_6->addWidget(tabWidget);
@@ -260,7 +319,7 @@ public:
         diphw->setCentralWidget(centralwidget);
         menubar = new QMenuBar(diphw);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 368, 21));
+        menubar->setGeometry(QRect(0, 0, 373, 24));
         diphw->setMenuBar(menubar);
         statusbar = new QStatusBar(diphw);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -268,7 +327,7 @@ public:
 
         retranslateUi(diphw);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(diphw);
@@ -287,7 +346,26 @@ public:
         wavyButton->setText(QApplication::translate("diphw", "wavy", nullptr));
         circularButton->setText(QApplication::translate("diphw", "cicular", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("diphw", "Part 1", nullptr));
+        img1Button->setText(QApplication::translate("diphw", "img1", nullptr));
+        img2Button->setText(QApplication::translate("diphw", "img2", nullptr));
+        dwtButton->setText(QApplication::translate("diphw", "DWT", nullptr));
+        img3Button->setText(QApplication::translate("diphw", "img3", nullptr));
+        fusionButton->setText(QApplication::translate("diphw", "Fusion", nullptr));
+        inverseButton->setText(QApplication::translate("diphw", "inverse", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("diphw", "Part 2", nullptr));
+        houghButton->setText(QApplication::translate("diphw", "Hough Transform", nullptr));
+        QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
+        ___qtablewidgetitem->setText(QApplication::translate("diphw", "\345\221\250\351\225\267", nullptr));
+        QTableWidgetItem *___qtablewidgetitem1 = tableWidget->horizontalHeaderItem(1);
+        ___qtablewidgetitem1->setText(QApplication::translate("diphw", "\351\235\242\347\251\215", nullptr));
+        QTableWidgetItem *___qtablewidgetitem2 = tableWidget->verticalHeaderItem(0);
+        ___qtablewidgetitem2->setText(QApplication::translate("diphw", "1", nullptr));
+        QTableWidgetItem *___qtablewidgetitem3 = tableWidget->verticalHeaderItem(1);
+        ___qtablewidgetitem3->setText(QApplication::translate("diphw", "2", nullptr));
+        threshold_lineEdit->setInputMask(QString());
+        threshold_lineEdit->setText(QApplication::translate("diphw", "50", nullptr));
+        minLineLength_lineEdit->setText(QApplication::translate("diphw", "50", nullptr));
+        maxLineGap_lineEdit->setText(QApplication::translate("diphw", "10", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("diphw", "Part 3", nullptr));
         closeImgButton->setText(QApplication::translate("diphw", "Clear", nullptr));
         exitButton->setText(QApplication::translate("diphw", "Close", nullptr));
