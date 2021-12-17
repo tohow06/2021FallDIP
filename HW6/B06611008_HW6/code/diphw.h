@@ -62,6 +62,8 @@ private slots:
     void on_img3Button_clicked();
 
 
+    void on_selButton_clicked();
+
 private:
     Ui::diphw *ui;
     cv::Mat myImg;
@@ -70,12 +72,16 @@ private:
     cv::Mat myImg3;
     cv::Mat imgDWT[3];
     int Fu_count;
+    const int NIter=1;
     cv::Mat mykernel;
     double tw,th,freq,hThres,hminLL, hmaxLG; // parameters
     ImgProcess imgp;
     float zcThres;
     void upDateMatrix();
     void resetUiInput();
+
+    cv::Point calcRectanglePoint();
+    static void onMouse(int event, int x, int y, int, void* param);
 
 };
 #endif // DIPHW_H
