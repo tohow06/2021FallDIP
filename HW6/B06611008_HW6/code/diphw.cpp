@@ -36,9 +36,9 @@ void diphw::on_openButton_clicked()
 {
 
     QString fileName = QFileDialog::getOpenFileName(this,
-                                                    //                                                    tr("Open Image"), ".",
-                                                    tr("Open Image"),"/Users/tohow/Documents/QtQt/2021FallDIP/HW6/C1HW06-2021/.",
-                                                    tr("Image Files (*.png *.jpg *.jpeg *.bmp *.tif"));
+        tr("Open Image"), ".",
+        //tr("Open Image"),"/Users/tohow/Documents/QtQt/2021FallDIP/HW6/C1HW06-2021/.",
+        tr("Image Files (*.png *.jpg *.jpeg *.bmp *.tif"));
     if(fileName != NULL)
     {
         //        std::cout<<fileName.section("/",-1,-1).toStdString()<<std::endl;
@@ -218,8 +218,8 @@ void diphw::on_houghButton_clicked()
 
         Vec4i l = linesP[i];
         line( cdstP, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,0,255), 3, LINE_AA);
-//        putText(cdstP, QString("%1").arg(i).toStdString(), Point(l[0], l[1]), FONT_HERSHEY_PLAIN, 3, Scalar(0,255,255), 4);
-//        cout<<"line  = "<<l[0]<<", "<<l[1]<<", "<<l[2]<<", "<<l[3]<<endl;
+        //        putText(cdstP, QString("%1").arg(i).toStdString(), Point(l[0], l[1]), FONT_HERSHEY_PLAIN, 3, Scalar(0,255,255), 4);
+        //        cout<<"line  = "<<l[0]<<", "<<l[1]<<", "<<l[2]<<", "<<l[3]<<endl;
 
     }
     int err_thres = 20;
@@ -257,8 +257,8 @@ void diphw::on_houghButton_clicked()
             Vec2i m = corners[j];
             int err = abs(l[0]-m[0])+abs(l[1]-m[1]);
             if(err<err_thres){
-                  flag = 1;
-                  break;
+                flag = 1;
+                break;
             }
         }
         if (flag == 0){
@@ -323,28 +323,28 @@ void diphw::on_dwtButton_clicked()
     }
 
     for(int i = 0; i<Fu_count; i++){
-    cvtColor(this->myImg1, src_gray[i], CV_BGR2GRAY);
-    src_gray[i].convertTo(src[i], CV_32FC1);
-    imgDWT[i] = Mat(src[i].size(), src[i].type());
+        cvtColor(this->myImg1, src_gray[i], CV_BGR2GRAY);
+        src_gray[i].convertTo(src[i], CV_32FC1);
+        imgDWT[i] = Mat(src[i].size(), src[i].type());
 
-    //DWT
-    dwt2::cvHaarWavelet(src[i], imgDWT[i], NIter);
+        //DWT
+        dwt2::cvHaarWavelet(src[i], imgDWT[i], NIter);
 
-    //show DWT result
-    namedWindow(QString("cvHaarWavelet result %1").arg(i).toStdString(), cv::WINDOW_AUTOSIZE);
-    imgDWT[i] = ImgProcess::imRescale(imgDWT[i], 255);
-    imgDWT[i].convertTo(dst_show[i], CV_8U);
-    imshow(QString("cvHaarWavelet result %1").arg(i).toStdString(), dst_show[i]);
-}
+        //show DWT result
+        namedWindow(QString("cvHaarWavelet result %1").arg(i).toStdString(), cv::WINDOW_AUTOSIZE);
+        imgDWT[i] = ImgProcess::imRescale(imgDWT[i], 255);
+        imgDWT[i].convertTo(dst_show[i], CV_8U);
+        imshow(QString("cvHaarWavelet result %1").arg(i).toStdString(), dst_show[i]);
+    }
 }
 
 
 void diphw::on_img1Button_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this,
-        //                                                    tr("Open Image"), ".",
-        tr("Open Image"),"/Users/tohow/Documents/QtQt/2021FallDIP/HW6/C1HW06-2021/.",
-        tr("Image Files (*.png *.jpg *.jpeg *.bmp *.tif"));
+                                                    //                                                    tr("Open Image"), ".",
+                                                    tr("Open Image"),"/Users/tohow/Documents/QtQt/2021FallDIP/HW6/C1HW06-2021/.",
+                                                    tr("Image Files (*.png *.jpg *.jpeg *.bmp *.tif"));
     if(fileName != NULL)
     {
         //        std::cout<<fileName.section("/",-1,-1).toStdString()<<std::endl;
@@ -359,9 +359,9 @@ void diphw::on_img1Button_clicked()
 void diphw::on_img2Button_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this,
-        //                                                    tr("Open Image"), ".",
-        tr("Open Image"),"/Users/tohow/Documents/QtQt/2021FallDIP/HW6/C1HW06-2021/.",
-        tr("Image Files (*.png *.jpg *.jpeg *.bmp *.tif"));
+                                                    //                                                    tr("Open Image"), ".",
+                                                    tr("Open Image"),"/Users/tohow/Documents/QtQt/2021FallDIP/HW6/C1HW06-2021/.",
+                                                    tr("Image Files (*.png *.jpg *.jpeg *.bmp *.tif"));
     if(fileName != NULL)
     {
         //        std::cout<<fileName.section("/",-1,-1).toStdString()<<std::endl;
@@ -376,9 +376,9 @@ void diphw::on_img2Button_clicked()
 void diphw::on_img3Button_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this,
-        //                                                    tr("Open Image"), ".",
-        tr("Open Image"),"/Users/tohow/Documents/QtQt/2021FallDIP/HW6/C1HW06-2021/.",
-        tr("Image Files (*.png *.jpg *.jpeg *.bmp *.tif"));
+                                                    //                                                    tr("Open Image"), ".",
+                                                    tr("Open Image"),"/Users/tohow/Documents/QtQt/2021FallDIP/HW6/C1HW06-2021/.",
+                                                    tr("Image Files (*.png *.jpg *.jpeg *.bmp *.tif"));
     if(fileName != NULL)
     {
         //        std::cout<<fileName.section("/",-1,-1).toStdString()<<std::endl;
@@ -392,14 +392,26 @@ void diphw::on_img3Button_clicked()
 
 void diphw::on_fusionButton_clicked()
 {
-    Mat LL[3], HL[3], LH[3], HH[3];
+    cout<<"qqqqqqqqqqqqqqqqqqqqqqqq"<<endl;
+    cerr<<"qwdpwioqmwepmvweopfcm"<<endl;
+    //    Mat LL[3], HL[3], LH[3], HH[3];
 
-    int i=0;
+//    int i=0;
 
-    int row = imgDWT[i].rows;
-    this->imgDWT[i];
+//    int row = this->imgDWT[i].rows;
+//    int col = this->imgDWT[i].cols;
+//    LL[i] = this->imgDWT[i](Rect(0, 0, col/2, row/2)).clone();
+//    HL[i] = this->imgDWT[i](Rect(0, row/2, col/2, row/2)).clone();
+//    LH[i] = this->imgDWT[i](Rect(col/2, 0, col/2, row/2)).clone();
+//    HH[i] = this->imgDWT[i](Rect(col/2, row/2, col/2, row/2)).clone();
 
-
+//    Mat dst;
+//    dst = ImgProcess::imRescale(LL[i],255);
+//    dst.convertTo(dst, CV_8U);
+//    cout<<dst<<endl;
+//    cout<<"aaaaaaaaaaaa"<<endl;
+//    cv::namedWindow("LL",cv::WINDOW_AUTOSIZE);
+//    cv::imshow("LL", dst);
 
 }
 

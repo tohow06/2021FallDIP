@@ -51,13 +51,16 @@ private slots:
 
     void on_maxLineGap_lineEdit_textChanged(const QString &arg1);
 
+    void on_fusionButton_clicked();
+
     void on_dwtButton_clicked();
 
     void on_img1Button_clicked();
+
     void on_img2Button_clicked();
+
     void on_img3Button_clicked();
 
-    void on_fusionButton_clicked();
 
 private:
     Ui::diphw *ui;
